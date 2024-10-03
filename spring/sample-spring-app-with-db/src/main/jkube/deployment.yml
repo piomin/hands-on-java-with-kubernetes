@@ -1,0 +1,10 @@
+spec:
+  template:
+    spec:
+      containers:
+        - env:
+          - name: DATABASE_PASS
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: person-db-postgresql

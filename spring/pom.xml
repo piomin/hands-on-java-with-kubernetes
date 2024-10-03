@@ -12,4 +12,8 @@
     <artifactId>spring</artifactId>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>sample-spring-app-with-db</module>
+    </modules>
+
 </project>
