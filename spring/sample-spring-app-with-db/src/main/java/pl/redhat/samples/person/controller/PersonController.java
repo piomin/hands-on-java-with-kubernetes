@@ -37,7 +37,7 @@ public class PersonController {
         return repository.findByLastName(lastName);
     }
 
-    @GetMapping("/age/{age}")
+    @GetMapping("/age-greater-than/{age}")
     public List<Person> getByAgeGreaterThan(@PathVariable("age") int age) {
         LOG.info("Get person by age={}", age);
         return repository.findByAgeGreaterThan(age);

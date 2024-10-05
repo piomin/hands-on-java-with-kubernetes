@@ -1,0 +1,30 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: sample-spring-app-with-db
+build:
+  local:
+    push: false
+  artifacts:
+    - image: piomin/sample-spring-app-with-db
+      buildpacks:
+        builder: paketobuildpacks/builder-jammy-base:latest
+        env:
+          - "BP_JVM_VERSION=21"
+manifests:
+  rawYaml:
+    - target/classes/META-INF/jkube/kubernetes/sample-spring-app-with-db-deployment.yml
+    - target/classes/META-INF/jkube/kubernetes/sample-spring-app-with-db-service.yml
+profiles:
+  - name: postgres
+    deploy:
+      helm:
+        releases:
+          - name: person-db
+            remoteChart: postgresql
+            version: 16.0.1
+            repo: https://charts.bitnami.com/bitnami
+            wait: false
+            setValues:
+              auth.username: spring
+              auth.database: spring
