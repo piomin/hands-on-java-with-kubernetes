@@ -12,9 +12,24 @@ build:
         env:
           - "BP_JVM_VERSION=21"
 manifests:
-  rawYaml:
-    - target/classes/META-INF/jkube/kubernetes/sample-spring-app-with-db-deployment.yml
-    - target/classes/META-INF/jkube/kubernetes/sample-spring-app-with-db-service.yml
+  helm:
+    releases:
+      - name: sample-spring-app-with-db
+        remoteChart: spring-boot-api-app
+        repo: https://piomin.github.io/helm-charts
+        setValues:
+          image:
+            repository: piomin/sample-spring-app-with-db
+            tag: latest
+          envs:
+            - name: DATABASE_USER
+              value: spring
+            - name: DATABASE_NAME
+              value: spring
+          extraEnvVarsSecret:
+            - envVarName: DATABASE_PASS
+              key: password
+              name: person-db-postgresql
 profiles:
   - name: postgres
     deploy:

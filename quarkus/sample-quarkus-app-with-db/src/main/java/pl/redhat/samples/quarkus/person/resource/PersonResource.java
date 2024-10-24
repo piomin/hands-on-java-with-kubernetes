@@ -1,5 +1,6 @@
 package pl.redhat.samples.quarkus.person.resource;
 
+import org.jboss.logging.Logger;
 import pl.redhat.samples.quarkus.person.model.Person;
 import pl.redhat.samples.quarkus.person.repository.PersonRepository;
 
@@ -14,10 +15,12 @@ import java.util.List;
 @Path("/persons")
 public class PersonResource {
 
+    private Logger log;
     private PersonRepository personRepository;
 
-    public PersonResource(PersonRepository personRepository) {
+    public PersonResource(PersonRepository personRepository, Logger log) {
         this.personRepository = personRepository;
+        this.log = log;
     }
 
     @POST
@@ -29,6 +32,7 @@ public class PersonResource {
 
     @GET
     public List<Person> getPersons() {
+        log.info("getPersons");
         return personRepository.listAll();
     }
 

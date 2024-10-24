@@ -1,0 +1,20 @@
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: sample-spring-k8s
+#data:
+#  MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
+#  MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
+#  MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED: "true"
+#  CUSTOM_PROPERTY: "test"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sample-spring-k8s
+data:
+  application.properties: |
+    management.endpoints.web.exposure.include = *
+    management.endpoints.endpoint.health.show-details = always
+    management.endpoints.endpoint.health.enabled = true
+    custom.property = test
