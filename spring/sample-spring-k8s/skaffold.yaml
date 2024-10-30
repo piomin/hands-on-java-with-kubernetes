@@ -1,0 +1,16 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: sample-spring-k8s
+build:
+  artifacts:
+    - image: piomin/sample-spring-k8s
+      jib:
+        args:
+          - -DskipTests
+manifests:
+  rawYaml:
+    - k8s/configmap.yaml
+    - k8s/deployment.yaml
+    - k8s/service.yaml
+#    - k8s/secret.yaml

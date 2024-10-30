@@ -18,3 +18,12 @@ data:
     management.endpoints.endpoint.health.show-details = always
     management.endpoints.endpoint.health.enabled = true
     custom.property = test
+    server.port = 8443
+    server.ssl.client-auth = NEED
+    server.ssl.bundle = server
+    spring.ssl.bundle.jks.server.keystore.location = ${CERT_PATH}/keystore.jks
+    spring.ssl.bundle.jks.server.keystore.password = ${PASSWORD}
+    spring.ssl.bundle.jks.server.keystore.type = JKS
+    spring.ssl.bundle.jks.server.truststore.location = ${CERT_PATH}/truststore.jks
+    spring.ssl.bundle.jks.server.truststore.password = ${PASSWORD}
+    spring.ssl.bundle.jks.server.truststore.type = JKS

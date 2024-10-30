@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-spring-k8s
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sample-spring-k8s
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sample-spring-k8s
+    spec:
+      containers:
+        - image: piomin/sample-spring-k8s
+          name: sample-spring-k8s
+          ports:
+            - containerPort: 8443
+              name: https
+          env:
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: jks-password-secret
+            - name: CERT_PATH
+              value: /opt/secret
+          volumeMounts:
+            - mountPath: /opt/secret
+              name: cert
+            - mountPath: /config
+              name: config-volume
+      volumes:
+        - name: cert
+          secret:
+            secretName: sample-spring-k8s-cert
+        - name: config-volume
+          configMap:
+            name: sample-spring-k8s
