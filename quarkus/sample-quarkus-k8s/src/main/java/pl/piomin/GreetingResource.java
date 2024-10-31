@@ -1,10 +1,12 @@
 package pl.piomin;
 
+import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 @Path("/hello")
 public class GreetingResource {
@@ -22,6 +24,17 @@ public class GreetingResource {
     @Path("/custom")
     public String custom() {
         return customProperty;
+    }
+
+    @Inject
+    @RestClient
+    SpringBootAppClient client;
+
+    @GET
+    @Path("/to-spring")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String helloToSpring() {
+        return client.hello();
     }
 
 }
