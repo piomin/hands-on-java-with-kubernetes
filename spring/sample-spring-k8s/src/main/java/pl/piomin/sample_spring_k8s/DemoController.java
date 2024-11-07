@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/hello")
 public class DemoController {
@@ -16,9 +18,12 @@ public class DemoController {
 
     @Value("${custom.property}")
     private String customProperty;
+    @Value("${custom.secure-property:NOT_FOUND}")
+    private String customSecureProperty;
 
     @GetMapping("/custom")
-    public String custom() {
-        return customProperty;
+    public Map<String, String> custom() {
+        return Map.of("customProperty", customProperty,
+                      "customSecureProperty", customSecureProperty);
     }
 }
