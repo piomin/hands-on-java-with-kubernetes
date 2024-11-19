@@ -1,5 +1,6 @@
-package pl.piomin.sample_spring_k8s;
+package pl.piomin.ch6;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 import java.util.Random;
-import java.util.random.RandomGenerator;
 
 @RestController
 @RequestMapping("/hello")
@@ -15,12 +15,14 @@ public class DemoController {
 
     @Value("${POD_NAME}")
     private String podName;
+    private DemoProperties properties;
 
     private long delay;
 
-    public DemoController() {
+    public DemoController(DemoProperties properties) {
         Random r = new Random();
         r.nextLong(50, 200);
+        this.properties = properties;
     }
 
     @GetMapping
@@ -34,14 +36,14 @@ public class DemoController {
         return "Hello with delay + " + " inside " + podName;
     }
 
-    @Value("${custom.property}")
+    @Value("${custom.property:NOT_FOUND}")
     private String customProperty;
-    @Value("${custom.secure-property:NOT_FOUND}")
+    @Value("${secure.property:NOT_FOUND}")
     private String customSecureProperty;
 
     @GetMapping("/custom")
     public Map<String, String> custom() {
-        return Map.of("customProperty", customProperty,
-                      "customSecureProperty", customSecureProperty);
+        return Map.of("customProperty", properties.getProperty(),
+                      "customSecureProperty", properties.getSecureProperty());
     }
 }
