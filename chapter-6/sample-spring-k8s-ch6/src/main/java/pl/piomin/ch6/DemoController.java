@@ -1,7 +1,11 @@
 package pl.piomin.ch6;
 
+import io.fabric8.kubernetes.api.model.Pod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.info.InfoContributor;
+import org.springframework.cloud.kubernetes.commons.AbstractKubernetesInfoContributor;
+import org.springframework.cloud.kubernetes.commons.PodUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,16 +17,16 @@ import java.util.Random;
 @RequestMapping("/hello")
 public class DemoController {
 
-    @Value("${POD_NAME}")
-    private String podName;
+    private PodUtils<Pod> utils;
     private DemoProperties properties;
 
     private long delay;
 
-    public DemoController(DemoProperties properties) {
-        Random r = new Random();
-        r.nextLong(50, 200);
+    public DemoController(DemoProperties properties,
+                          PodUtils<Pod> utils) {
+        this.delay = new Random().nextLong(50, 200);
         this.properties = properties;
+        this.utils = utils;
     }
 
     @GetMapping
@@ -33,13 +37,8 @@ public class DemoController {
     @GetMapping("/delayed")
     public String delayed() throws InterruptedException {
         Thread.sleep(delay);
-        return "Hello with delay + " + " inside " + podName;
+        return "Hello with delay " + delay + "ms inside " + utils.currentPod().get().getMetadata().getName();
     }
-
-    @Value("${custom.property:NOT_FOUND}")
-    private String customProperty;
-    @Value("${secure.property:NOT_FOUND}")
-    private String customSecureProperty;
 
     @GetMapping("/custom")
     public Map<String, String> custom() {
