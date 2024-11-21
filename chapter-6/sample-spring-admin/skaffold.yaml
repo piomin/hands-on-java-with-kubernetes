@@ -1,0 +1,15 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: sample-spring-admin
+build:
+  artifacts:
+    - image: piomin/sample-spring-admin
+      jib:
+        args:
+          - -DskipTests
+manifests:
+  rawYaml:
+    - k8s/deployment.yaml
+    - k8s/service.yaml
+    - k8s/rolebinding.yaml
