@@ -13,7 +13,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>sample-quarkus-k8s</module>
+        <module>sample-quarkus-k8s-ch6</module>
+        <module>sample-spring-admin</module>
+        <module>sample-spring-k8s-ch6</module>
     </modules>
 
 </project>
