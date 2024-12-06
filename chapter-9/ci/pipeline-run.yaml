@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: sample-spring-k8s-pipeline-
+spec:
+  pipelineRef:
+    name: sample-spring-k8s-pipeline
+  workspaces:
+    - name: source-dir
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+    - name: sonar-settings
+      secret:
+        secretName: sonarqube-token-secret

@@ -24,7 +24,7 @@
         <module>quarkus</module>
         <module>spring</module>
         <module>chapter-6</module>
-        <module>chapter-6/sample-spring-k8s-ch6</module>
+        <module>chapter-9</module>
     </modules>
 
     <dependencyManagement>

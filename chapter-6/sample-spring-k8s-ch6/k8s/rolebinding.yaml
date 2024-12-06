@@ -26,7 +26,7 @@ subjects:
     name: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
   name: sample-spring-k8s-view
 roleRef:
@@ -36,3 +36,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: default
+    namespace: spring

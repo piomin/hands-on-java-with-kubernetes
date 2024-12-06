@@ -3,6 +3,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: sample-spring-k8s
+    spring-boot: "true"
   name: sample-spring-k8s
 spec:
   ports:

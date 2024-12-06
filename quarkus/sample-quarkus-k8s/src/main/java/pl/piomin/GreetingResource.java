@@ -8,8 +8,11 @@ import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
+import java.util.Map;
+
 @Path("/hello")
 public class GreetingResource {
+
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -20,10 +23,14 @@ public class GreetingResource {
     @ConfigProperty(name = "custom.property")
     private String customProperty;
 
+    @ConfigProperty(name = "custom.secure-property", defaultValue = "NOT_FOUND")
+    private String customSecureProperty;
+
     @GET
     @Path("/custom")
-    public String custom() {
-        return customProperty;
+    public Map<String, String> custom() {
+        return Map.of("customProperty", customProperty,
+                "customSecureProperty", customSecureProperty);
     }
 
     @Inject

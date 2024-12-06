@@ -1,0 +1,84 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: sample-spring-k8s-pipeline
+  namespace: tekton-pipelines
+spec:
+  tasks:
+    - name: git-clone
+      params:
+        - name: url
+          value: https://github.com/piomin/sample-spring-boot-web.git
+        - name: revision
+          value: master
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: source-dir
+    - name: junit-tests
+      params:
+        - name: GOALS
+          value:
+            - test
+      runAfter:
+        - git-clone
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: source
+          workspace: source-dir
+        - name: maven-settings
+          workspace: source-dir
+    - name: sonarqube
+      params:
+        - name: SONAR_HOST_URL
+          value: https://sonarcloud.io
+        - name: SONAR_PROJECT_KEY
+          value: sample-spring-boot-web
+      runAfter:
+        - junit-tests
+      taskRef:
+        kind: Task
+        name: sonarqube-scanner
+      workspaces:
+        - name: source-dir
+          workspace: source-dir
+        - name: sonar-settings
+          workspace: sonar-settings
+    - name: get-version
+      runAfter:
+        - sonarqube
+      taskRef:
+        kind: Task
+        name: maven-get-version
+      workspaces:
+        - name: source
+          workspace: source-dir
+    - name: build-and-push-image
+      params:
+        - name: IMAGE
+          value: >-
+            quay.io/pminkows/sample-spring-boot-web:$(tasks.get-version.results.version)
+      runAfter:
+        - get-version
+      taskRef:
+        kind: Task
+        name: jib-maven
+      workspaces:
+        - name: source
+          workspace: source-dir
+    - name: scan-image
+      params:
+        - name: ARGS
+          value: grype quay.io/pminkows/sample-spring-k8s:$(tasks.get-version.results.version)
+      runAfter:
+        - build-and-push-image
+      taskRef:
+        kind: Task
+        name: grype
+  workspaces:
+    - name: source-dir
+    - name: sonar-settings

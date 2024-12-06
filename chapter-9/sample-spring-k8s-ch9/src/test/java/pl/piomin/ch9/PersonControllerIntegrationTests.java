@@ -1,4 +1,4 @@
-package pl.redhat.samples.person;
+package pl.piomin.ch9;
 
 import org.instancio.Instancio;
 import org.instancio.Select;
@@ -10,12 +10,14 @@ import org.springframework.boot.testcontainers.service.connection.ServiceConnect
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import pl.redhat.samples.person.domain.Person;
+import pl.piomin.ch9.domain.Person;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class PersonControllerTests {
+public class PersonControllerIntegrationTests {
 
     @Autowired
     TestRestTemplate restTemplate;
@@ -32,8 +34,8 @@ public class PersonControllerTests {
                 .ignore(Select.field("id"))
                 .create();
         person = restTemplate.postForObject("/persons", person, Person.class);
-        Assertions.assertNotNull(person);
-        Assertions.assertNotNull(person.getId());
+        assertNotNull(person);
+        assertNotNull(person.getId());
     }
 
     @Test
@@ -45,16 +47,16 @@ public class PersonControllerTests {
                 .create();
         restTemplate.put("/persons", person);
         Person updated = restTemplate.getForObject("/persons/{id}", Person.class, id);
-        Assertions.assertNotNull(updated);
-        Assertions.assertNotNull(updated.getId());
-        Assertions.assertEquals(id, updated.getId());
+        assertNotNull(updated);
+        assertNotNull(updated.getId());
+        assertEquals(id, updated.getId());
     }
 
     @Test
     @Order(3)
     void getAll() {
         Person[] persons = restTemplate.getForObject("/persons", Person[].class);
-        Assertions.assertEquals(1, persons.length);
+        assertEquals(1, persons.length);
     }
 
     @Test
@@ -62,7 +64,7 @@ public class PersonControllerTests {
     void deleteAndGet() {
         restTemplate.delete("/persons/{id}", 1);
         Person person = restTemplate.getForObject("/persons/{id}", Person.class, 1);
-        Assertions.assertNull(person);
+        assertNull(person);
     }
 
 }

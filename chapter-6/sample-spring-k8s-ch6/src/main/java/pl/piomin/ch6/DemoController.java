@@ -19,14 +19,17 @@ public class DemoController {
 
     private PodUtils<Pod> utils;
     private DemoProperties properties;
+    private SampleQuarkusK8sClient client;
 
     private long delay;
 
     public DemoController(DemoProperties properties,
-                          PodUtils<Pod> utils) {
+                          PodUtils<Pod> utils,
+                          SampleQuarkusK8sClient client) {
         this.delay = new Random().nextLong(50, 200);
         this.properties = properties;
         this.utils = utils;
+        this.client = client;
     }
 
     @GetMapping
@@ -44,5 +47,10 @@ public class DemoController {
     public Map<String, String> custom() {
         return Map.of("customProperty", properties.getProperty(),
                       "customSecureProperty", properties.getSecureProperty());
+    }
+
+    @GetMapping("/to-quarkus")
+    public String callQuarkus()  {
+        return client.hello();
     }
 }

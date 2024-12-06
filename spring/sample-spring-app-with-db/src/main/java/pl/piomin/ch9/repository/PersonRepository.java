@@ -1,7 +1,7 @@
-package pl.redhat.samples.person.repository;
+package pl.piomin.ch9.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import pl.redhat.samples.person.domain.Person;
+import pl.piomin.ch9.domain.Person;
 
 import java.util.List;
 
