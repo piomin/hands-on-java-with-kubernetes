@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    { { - include "chart.labels" . | nindent 4 } }
+  { { - with .Values.ingress.annotations } }
+  annotations:
+    { { - toYaml . | nindent 4 } }
+  { { - end } }
+data:
+  application.properties: |
+    {{ .Values.appConfig }}

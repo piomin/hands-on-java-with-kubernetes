@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: postgresql
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - env: test
+            autoSync: true
+          - env: stage
+            autoSync: false
+          - env: prod
+            autoSync: false
+  template:
+    metadata:
+      name: postgresql-{{ .env }}
+    spec:
+      destination:
+        namespace: {{ .env }}
+        server: 'https://kubernetes.default.svc'
+      project: default
+      source:
+        repoURL: 'https://charts.bitnami.com/bitnami'
+        targetRevision: 16.1.2
+        chart: postgresql
+  templatePatch: |
+    {{- if .autoSync }}
+    spec:
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+    {{- end }}

@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: sample-spring-k8s
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - env: test
+            autoSync: true
+          - env: stage
+            autoSync: false
+          - env: prod
+            autoSync: false
+  template:
+    metadata:
+      name: sample-spring-k8s-{{ .env }}
+    spec:
+      destination:
+        namespace: {{ .env }}
+        server: 'https://kubernetes.default.svc'
+      project: default
+      source:
+        path: chapter-9/cd/chart
+        repoURL: 'https://github.com/piomin/java-with-kubernetes-in-action.git'
+        targetRevision: HEAD
+        helm:
+          valueFiles:
+            - values-{{ .env }}.yaml
+  templatePatch: |
+    {{- if .autoSync }}
+    spec:
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+    {{- end }}
