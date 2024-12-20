@@ -25,6 +25,7 @@
         <module>spring</module>
         <module>chapter-6</module>
         <module>chapter-9</module>
+        <module>chapter-8</module>
     </modules>
 
     <dependencyManagement>
