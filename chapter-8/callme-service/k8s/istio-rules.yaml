@@ -1,16 +1,16 @@
-#apiVersion: networking.istio.io/v1beta1
-#kind: DestinationRule
-#metadata:
-#  name: callme-service-destination
-#spec:
-#  host: callme-service
-#  subsets:
-#    - name: v1
-#      labels:
-#        version: v1
-#    - name: v2
-#      labels:
-#        version: v2
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: callme-service
+spec:
+  host: callme-service
+  subsets:
+    - name: v1
+      labels:
+        version: v1
+    - name: v2
+      labels:
+        version: v2
 #  trafficPolicy: # --- enable for adding circuit breaker into DestinationRule
 #    connectionPool:
 #      http:
@@ -31,21 +31,31 @@ spec:
   hosts:
     - callme-service
   http:
-    - route:
-      - destination:
-          host: callme-service
-#          subset: v2
-#        weight: 80
-#      - destination:
-#          host: callme-service
-#          subset: v1
-#        weight: 20
-#      retries:
-#        attempts: 3
-#        retryOn: gateway-error,connect-failure,refused-stream
-#      timeout: 0.5s
-#      fault: # --- enable for inject fault into the route
-#        delay:
-#          percentage:
-#            value: 33
-#          fixedDelay: 3s
+    - match:
+        - headers:
+            X-Version:
+              exact: v1
+      route:
+        - destination:
+            host: callme-service
+            subset: v1
+    - match:
+        - headers:
+            X-Version:
+              exact: v2
+      route:
+        - destination:
+            host: callme-service
+            subset: v2
+    - match:
+        - withoutHeaders:
+            X-Version: {}
+      route:
+        - destination:
+            host: callme-service
+            subset: v2
+          weight: 80
+        - destination:
+            host: callme-service
+            subset: v1
+          weight: 20

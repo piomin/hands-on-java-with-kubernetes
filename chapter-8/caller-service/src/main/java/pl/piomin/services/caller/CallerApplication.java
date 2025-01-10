@@ -1,12 +1,12 @@
 package pl.piomin.services.caller;
 
-import org.springframework.beans.factory.annotation.Value;
+//import brave.Tracing;
+//import brave.baggage.BaggageField;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class CallerApplication {

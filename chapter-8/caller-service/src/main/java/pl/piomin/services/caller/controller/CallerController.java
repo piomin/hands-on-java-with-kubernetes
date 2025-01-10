@@ -25,9 +25,11 @@ public class CallerController {
 
     @GetMapping("/ping")
     public String ping() {
+//    public String ping(@RequestHeader("X-Version") String version) {
         LOGGER.info("Ping: version={}", version);
         String response = restClient.get()
                 .uri("http://callme-service:8080/callme/ping")
+//                .header("X-Version", version)
                 .retrieve()
                 .body(String.class);
         LOGGER.info("Calling: response={}", response);
