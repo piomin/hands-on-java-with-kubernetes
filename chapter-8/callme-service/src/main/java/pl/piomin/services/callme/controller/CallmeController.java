@@ -33,33 +33,31 @@ public class CallmeController {
         return "I'm callme-service " + hostname + ":" + version;
     }
 
-    private AtomicInteger index = new AtomicInteger();
+    private final AtomicInteger index = new AtomicInteger();
+    private final Random random = new Random();
 
-//    @GetMapping("/ping-with-random-error")
-//    public ResponseEntity<String> pingWithRandomError() {
-//        int r = random.nextInt(100);
-//        if (r % 2 == 0) {
-//            LOGGER.info("Ping with random error: name={}, version={}, random={}, httpCode={}",
-//                    buildProperties.isPresent() ? buildProperties.get().getName() : "callme-service", version, r, HttpStatus.GATEWAY_TIMEOUT);
-//            return new ResponseEntity<>("Surprise " + INSTANCE_ID + " " + version, HttpStatus.GATEWAY_TIMEOUT);
-//        } else {
-//            LOGGER.info("Ping with random error: name={}, version={}, random={}, httpCode={}",
-//                    buildProperties.isPresent() ? buildProperties.get().getName() : "callme-service", version, r, HttpStatus.OK);
-//            return new ResponseEntity<>("I'm callme-service" + INSTANCE_ID + " " + version, HttpStatus.OK);
-//        }
-//    }
+    @GetMapping("/ping-with-random-error")
+    public ResponseEntity<String> pingWithRandomError() {
+        int r = random.nextInt(100);
+        if (r % 2 == 0) {
+            LOGGER.info("Ping with random error: name={}, version={}, random={}, httpCode={}",
+                    hostname, version, r, HttpStatus.GATEWAY_TIMEOUT);
+            return new ResponseEntity<>("Surprise " + hostname + " " + version, HttpStatus.GATEWAY_TIMEOUT);
+        } else {
+            LOGGER.info("Ping with random error: name={}, version={}, random={}, httpCode={}",
+                    hostname, version, r, HttpStatus.OK);
+            return new ResponseEntity<>("I'm callme-service" + hostname + " " + version, HttpStatus.OK);
+        }
+    }
 
-//    @GetMapping("/ping-with-random-delay")
-//    public String pingWithRandomDelay() throws InterruptedException {
-//        int r = new Random().nextInt(3000);
-//        int i = index.incrementAndGet();
-//        ProcessingEvent event = new ProcessingEvent(i);
-//        event.begin();
-//        LOGGER.info("Ping with random delay: id={}, name={}, version={}, delay={}", i,
-//                buildProperties.isPresent() ? buildProperties.get().getName() : "callme-service", version, r);
-//        Thread.sleep(r);
-//        event.commit();
-//        return "I'm callme-service " + version;
-//    }
+    @GetMapping("/ping-with-random-delay")
+    public String pingWithRandomDelay() throws InterruptedException {
+        int r = new Random().nextInt(1000, 5000);
+        int i = index.incrementAndGet();
+        LOGGER.info("Ping with random delay: id={}, name={}, version={}, delay={}", i,
+                hostname, version, r);
+        Thread.sleep(r);
+        return "I'm callme-service " + version;
+    }
 
 }

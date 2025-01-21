@@ -1,11 +1,5 @@
 package pl.piomin.services.caller.config;
 
-//import brave.Tracing;
-//import brave.baggage.BaggageField;
-//import brave.baggage.BaggagePropagation;
-//import brave.baggage.BaggagePropagationConfig;
-//import brave.propagation.B3Propagation;
-
 import brave.Tracing;
 import brave.baggage.BaggageField;
 import brave.baggage.BaggagePropagation;
