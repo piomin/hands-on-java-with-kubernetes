@@ -14,6 +14,7 @@
 
     <modules>
         <module>sample-spring-k8s-ch1</module>
+        <module>sample-quarkus-k8s-ch1</module>
     </modules>
 
 </project>
