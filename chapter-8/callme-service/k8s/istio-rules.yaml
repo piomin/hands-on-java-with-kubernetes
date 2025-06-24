@@ -11,17 +11,17 @@ spec:
     - name: v2
       labels:
         version: v2
-#  trafficPolicy: # --- enable for adding circuit breaker into DestinationRule
+  trafficPolicy:
 #    connectionPool:
 #      http:
 #        http1MaxPendingRequests: 1
 #        maxRequestsPerConnection: 1
 #        maxRetries: 0
-#    outlierDetection:
-#      consecutive5xxErrors: 3
-#      interval: 30s
-#      baseEjectionTime: 1m
-#      maxEjectionPercent: 100
+    outlierDetection:
+      consecutive5xxErrors: 3
+      interval: 30s
+      baseEjectionTime: 1m
+      maxEjectionPercent: 100
 #---
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService

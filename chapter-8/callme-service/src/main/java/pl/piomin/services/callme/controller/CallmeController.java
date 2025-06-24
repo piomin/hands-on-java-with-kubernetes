@@ -46,7 +46,7 @@ public class CallmeController {
         } else {
             LOGGER.info("Ping with random error: name={}, version={}, random={}, httpCode={}",
                     hostname, version, r, HttpStatus.OK);
-            return new ResponseEntity<>("I'm callme-service" + hostname + " " + version, HttpStatus.OK);
+            return new ResponseEntity<>("I'm callme-service " + hostname + " " + version, HttpStatus.OK);
         }
     }
 
