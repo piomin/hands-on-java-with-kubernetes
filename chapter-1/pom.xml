@@ -12,4 +12,8 @@
     <artifactId>chapter-1</artifactId>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>sample-spring-k8s-ch1</module>
+    </modules>
+
 </project>

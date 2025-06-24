@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pl.piomin</groupId>
-	<artifactId>sample-spring-k8s</artifactId>
+	<artifactId>sample-spring-k8s-chno</artifactId>
 	<version>0.0.3-SNAPSHOT</version>
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
