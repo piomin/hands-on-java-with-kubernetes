@@ -9,11 +9,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>quarkus</artifactId>
+    <artifactId>chapter-4</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>sample-quarkus-k8s</module>
+        <module>sample-quarkus-app-with-db</module>
     </modules>
 
 </project>

@@ -1,0 +1,13 @@
+{
+  "feature": {
+    "network": {
+      "incoming": {
+        "mode": "steal",
+        "http_filter": {
+          "header_filter": "X-Forward-To-Local: true"
+        }
+      }
+    }
+  }
+}
+
