@@ -28,6 +28,7 @@
         <module>chapter-8</module>
         <module>chapter-1</module>
         <module>chapter-4</module>
+        <module>chapter-5</module>
     </modules>
 
     <dependencyManagement>
