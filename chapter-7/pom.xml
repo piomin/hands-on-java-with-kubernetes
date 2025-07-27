@@ -9,11 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>spring</artifactId>
+    <artifactId>chapter-7</artifactId>
     <packaging>pom</packaging>
-
-    <modules>
-        <module>sample-spring-k8s-chno</module>
-    </modules>
 
 </project>
