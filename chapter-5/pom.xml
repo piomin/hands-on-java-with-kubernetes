@@ -12,4 +12,9 @@
     <artifactId>chapter-5</artifactId>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>sample-db-vault</module>
+        <module>sample-quarkus-k8s-ch5</module>
+    </modules>
+
 </project>

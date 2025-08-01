@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: sample-db-vault
+  datasource:
+    url: jdbc:postgresql://postgres:5432/postgres
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+  cloud:
+    vault:
+      config.lifecycle:
+        enabled: true
+        min-renewal: 10s
+        expiry-threshold: 30s
+      kv.enabled: false
+      uri: http://vault.vault:8200
+      authentication: KUBERNETES
+      postgresql:
+        enabled: true
+        role: default
+        backend: database
+      kubernetes:
+        role: internal-app
+  liquibase:
+    change-log:
+      classpath:changelog/changeLog.sql
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  endpoint.health:
+#    show-details: always
+#    group:
+#      readiness:
+#        include: db
+#    probes:
+#      enabled: true

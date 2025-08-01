@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-app-deployment
+spec:
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+      - name: sample-app
+        image: piomin/sample-app
+        ports:
+        - containerPort: 8080
+      serviceAccountName: internal-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-app-service
+spec:
+  type: ClusterIP
+  selector:
+    app: sample-app
+  ports:
+  - port: 8080
+
