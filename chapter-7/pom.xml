@@ -12,4 +12,8 @@
     <artifactId>chapter-7</artifactId>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>sample-quarkus-k8s-ch7</module>
+    </modules>
+
 </project>
