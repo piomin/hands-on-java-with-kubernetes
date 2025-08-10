@@ -1,10 +1,10 @@
 apiVersion: skaffold/v4beta5
 kind: Config
 metadata:
-  name: consumer
+  name: spring-kafka-consumer
 build:
   artifacts:
-    - image: piomin/consumer
+    - image: piomin/spring-kafka-consumer
       jib: {}
 manifests:
   rawYaml:

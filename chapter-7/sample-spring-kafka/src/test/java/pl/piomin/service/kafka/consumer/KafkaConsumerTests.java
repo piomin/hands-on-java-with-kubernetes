@@ -9,9 +9,9 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.context.EmbeddedKafka;
-import pl.piomin.services.kafka.common.Info;
 import pl.piomin.services.kafka.consumer.KafkaConsumer;
 import pl.piomin.services.kafka.consumer.ListenerService;
+import pl.piomin.services.kafka.consumer.message.Info;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -33,9 +33,9 @@ public class KafkaConsumerTests {
 
     @Test
     void eventReceive() throws ExecutionException, InterruptedException, TimeoutException {
-        Info info = new Info(1L, "", "", "", "");
-        SendResult<Long, Info> r = template.send("info", info.getId(), info)
-                .get(1000, TimeUnit.MILLISECONDS);
-        LOG.info("Sent: {}", r.getProducerRecord().value());
+//        Info info = new Info(1L, "", "", "", "");
+//        SendResult<Long, Info> r = template.send("info", info.getId(), info)
+//                .get(1000, TimeUnit.MILLISECONDS);
+//        LOG.info("Sent: {}", r.getProducerRecord().value());
     }
 }

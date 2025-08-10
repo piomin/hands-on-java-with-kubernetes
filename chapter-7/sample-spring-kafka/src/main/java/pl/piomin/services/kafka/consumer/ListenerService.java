@@ -23,7 +23,7 @@ public class ListenerService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        LOG.info("Processed(key={}, partition={})", key, partition);
+        LOG.info("Processed: key={}, partition={}", key, partition);
     }
 
 }
