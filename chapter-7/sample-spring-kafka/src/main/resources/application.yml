@@ -1,0 +1,11 @@
+spring:
+  application.name: kafka-consumer
+  kafka:
+    bootstrap-servers: ${KAFKA_URL:localhost}:9092
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+
+app.in.topic: ${TOPIC:info}

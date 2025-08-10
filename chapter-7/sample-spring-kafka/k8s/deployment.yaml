@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer
+spec:
+  selector:
+    matchLabels:
+      app: consumer
+  template:
+    metadata:
+      labels:
+        app: consumer
+    spec:
+      containers:
+      - name: consumer
+        image: piomin/consumer
+        resources:
+          requests:
+            memory: 200Mi
+            cpu: 100m
+        ports:
+        - containerPort: 8080
+        env:
+          - name: TOPIC
+            value: test-1
+          - name: KAFKA_URL
+            value: my-cluster-kafka-bootstrap
