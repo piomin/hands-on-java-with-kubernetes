@@ -1,7 +1,7 @@
 spring:
   application.name: spring-kafka-consumer
   kafka:
-    bootstrap-servers: my-kafka.kafka:9092
+    bootstrap-servers: my-kafka.kafka.svc.cluster.local:9092
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
