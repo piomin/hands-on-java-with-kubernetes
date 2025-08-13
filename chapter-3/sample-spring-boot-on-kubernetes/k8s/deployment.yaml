@@ -17,9 +17,12 @@ spec:
     spec:
       containers:
       - name: sample-spring-boot-on-kubernetes
-        image: piomin/sample-spring-boot-on-kubernetes:1.3.0-SNAPSHOT
+        image: piomin/sample-spring-boot-on-kubernetes:1.0.0-SNAPSHOT
         ports:
         - containerPort: 8080
+          name: http
+        - containerPort: 8081
+          name: mgmt
         env:
 #          - name: JAVA_TOOL_OPTIONS
 #            value: -Xmx384m -Xms384m -XX:ReservedCodeCacheSize=150M
@@ -54,7 +57,7 @@ spec:
         livenessProbe:
           httpGet:
             port: 8081
-            path: /actuator/health/live
+            path: /actuator/health/liveness
             scheme: HTTP
           timeoutSeconds: 1
           periodSeconds: 10
@@ -63,14 +66,18 @@ spec:
         resources:
           limits:
             memory: 740Mi
+            cpu: '2'
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: sample-spring-boot-on-kubernetes-service
+  name: sample-spring-boot-on-kubernetes
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: sample-spring-boot-on-kubernetes
   ports:
-  - port: 8080
+    - port: 8080
+      name: http
+    - port: 8081
+      name: mgmt
