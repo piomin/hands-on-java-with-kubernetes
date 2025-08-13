@@ -11,4 +11,4 @@ build:
     gitCommit: {}
 manifests:
   rawYaml:
-    - k8s/deployment.yaml
+    - k8s/deployment-versions.yaml
