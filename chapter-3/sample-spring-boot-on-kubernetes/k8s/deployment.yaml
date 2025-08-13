@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-spring-boot-on-kubernetes-deployment
+spec:
+  selector:
+    matchLabels:
+      app: sample-spring-boot-on-kubernetes
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+      labels:
+        app: sample-spring-boot-on-kubernetes
+    spec:
+      containers:
+      - name: sample-spring-boot-on-kubernetes
+        image: piomin/sample-spring-boot-on-kubernetes:1.3.0-SNAPSHOT
+        ports:
+        - containerPort: 8080
+        env:
+#          - name: JAVA_TOOL_OPTIONS
+#            value: -Xmx384m -Xms384m -XX:ReservedCodeCacheSize=150M
+#          - name: BPL_JVM_THREAD_COUNT
+#            value: "50"
+          - name: MONGO_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: mongodb
+                key: database-name
+          - name: MONGO_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongodb
+                key: database-user
+          - name: MONGO_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb
+                key: database-password
+          - name: MONGO_URL
+            value: mongodb
+        readinessProbe:
+          httpGet:
+            port: 8080
+            path: /readiness
+            scheme: HTTP
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            port: 8081
+            path: /actuator/health/live
+            scheme: HTTP
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        resources:
+          limits:
+            memory: 740Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-spring-boot-on-kubernetes-service
+spec:
+  type: NodePort
+  selector:
+    app: sample-spring-boot-on-kubernetes
+  ports:
+  - port: 8080

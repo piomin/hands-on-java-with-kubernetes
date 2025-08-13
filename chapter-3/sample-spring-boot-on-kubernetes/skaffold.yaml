@@ -1,0 +1,47 @@
+apiVersion: skaffold/v2beta22
+kind: Config
+metadata:
+  name: sample-spring-boot-on-kubernetes
+build:
+  artifacts:
+  - image: piomin/sample-spring-boot-on-kubernetes
+    jib:
+      args:
+      - -Pjib
+      - -DskipTests
+deploy:
+  kubectl:
+    manifests:
+      - k8s/mongodb-deployment.yaml
+      - k8s/deployment.yaml
+profiles:
+- name: knative
+  deploy:
+    kubectl:
+      manifests:
+      - k8s/knative-service.yaml
+- name: buildpacks
+  build:
+    artifacts:
+      - image: piomin/sample-spring-boot-on-kubernetes
+        buildpacks:
+          builder: paketobuildpacks/builder:base
+#          builder: gcr.io/buildpacks/builder:v1
+#          builder: heroku/buildpacks:20
+          buildpacks:
+#            - paketo-buildpacks/eclipse-openj9
+#            - paketo-buildpacks/amazon-corretto
+#            - paketo-buildpacks/oracle
+            - paketo-buildpacks/adoptium
+#            - paketo-buildpacks/azul-zulu
+#            - paketo-buildpacks/alibaba-dragonwell
+#            - paketo-buildpacks/microsoft-openjdk
+            - paketo-buildpacks/java
+          env:
+            - BP_JVM_VERSION=17
+#            - GOOGLE_RUNTIME_VERSION=17
+#    tagPolicy:
+#      envTemplate:
+#        template: "{{.VENDOR}}"
+
+
