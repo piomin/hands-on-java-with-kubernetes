@@ -15,11 +15,11 @@ public class ListenerService {
 
     @KafkaListener(id = "info", topics = "${app.in.topic}")
     public void onMessage(@Payload pl.piomin.services.kafka.consumer.message.Info info,
-                          @Header(name = KafkaHeaders.RECEIVED_KEY, required = false) Long key,
+                          @Header(name = KafkaHeaders.RECEIVED_KEY, required = false) String key,
                           @Header(KafkaHeaders.RECEIVED_PARTITION) int partition) {
         LOG.info("Received(key={}, partition={}): {}", key, partition, info);
         try {
-            Thread.sleep(500);
+            Thread.sleep(10);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
