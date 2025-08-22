@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-spring-kafka
+spec:
+  selector:
+    matchLabels:
+      app: sample-spring-kafka
+  template:
+    metadata:
+      labels:
+        app: sample-spring-kafka
+    spec:
+      containers:
+      - name: sample-spring-kafka
+        image: sample-spring-kafka:1.0-SNAPSHOT
+        resources:
+          requests:
+            memory: 200Mi
+            cpu: 100m
+        ports:
+          - containerPort: 8080
+          - containerPort: 9091
+        env:
+          - name: BPL_JFR_ENABLED
+            value: "true"
+          - name: JAVA_TOOL_OPTIONS
+            value: "-Dcom.sun.management.jmxremote.port=9091 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-spring-kafka
+  labels:
+    app: sample-spring-kafka
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      name: http
+    - port: 9091
+      name: jfr-jmx
+  selector:
+    app: sample-spring-kafka
