@@ -12,7 +12,6 @@ public class Person {
     private int age;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    private Integer externalId;
 
     public Integer getId() {
         return id;
@@ -54,14 +53,6 @@ public class Person {
         this.gender = gender;
     }
 
-    public Integer getExternalId() {
-        return externalId;
-    }
-
-    public void setExternalId(Integer externalId) {
-        this.externalId = externalId;
-    }
-
     @Override
     public String toString() {
         return "Person{" +
@@ -69,7 +60,6 @@ public class Person {
                 ", name='" + firstName + " " + lastName + '\'' +
                 ", age=" + age +
                 ", gender=" + gender +
-                ", externalId=" + externalId +
                 '}';
     }
 }

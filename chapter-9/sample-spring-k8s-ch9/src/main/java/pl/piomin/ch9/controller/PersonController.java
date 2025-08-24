@@ -5,8 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import pl.piomin.ch9.domain.Person;
 import pl.piomin.ch9.repository.PersonRepository;
-import pl.piomin.ch9.repository.PersonViewRepository;
-import pl.piomin.ch9.view.PersonView;
 
 import java.util.List;
 
@@ -16,29 +14,27 @@ public class PersonController {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonController.class);
     private final PersonRepository repository;
-    private final PersonViewRepository viewRepository;
 
-    public PersonController(PersonRepository repository, PersonViewRepository viewRepository) {
+    public PersonController(PersonRepository repository) {
         this.repository = repository;
-        this.viewRepository = viewRepository;
     }
 
     @GetMapping
-    public List<PersonView> getAll() {
+    public List<Person> getAll() {
         LOG.info("Get all persons");
-        return (List<PersonView>) viewRepository.findAll();
+        return (List<Person>) repository.findAll();
     }
 
     @GetMapping("/{id}")
-    public PersonView getById(@PathVariable("id") Integer id) {
+    public Person getById(@PathVariable("id") Integer id) {
         LOG.info("Get person by id={}", id);
-        return viewRepository.findOne(id);
+        return repository.findById(id).orElseThrow();
     }
 
     @GetMapping("/age/{age}")
-    public PersonView getByAgeGreaterThan(@PathVariable("age") int age) {
+    public List<Person> getByAgeGreaterThan(@PathVariable("age") int age) {
         LOG.info("Get person by age={}", age);
-        return viewRepository.findByAgeGreaterThan(age);
+        return repository.findByAgeGreaterThan(age);
     }
 
     @DeleteMapping("/{id}")
