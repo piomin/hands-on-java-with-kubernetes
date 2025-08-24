@@ -16,7 +16,7 @@ spec:
         image: piomin/sample-app
         ports:
         - containerPort: 8080
-      serviceAccountName: internal-app
+      serviceAccountName: spring-app
 ---
 apiVersion: v1
 kind: Service
