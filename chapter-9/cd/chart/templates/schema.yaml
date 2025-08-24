@@ -1,0 +1,16 @@
+{{- if .Values.databaseSchema }}
+apiVersion: db.atlasgo.io/v1alpha1
+kind: AtlasSchema
+metadata:
+  name: sample-spring-k8s
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  urlFrom:
+    secretKeyRef:
+      key: url
+      name: postgres-credentials
+  schema:
+    sql: |
+      {{ .Values.databaseSchema }}
+{{- end }}
