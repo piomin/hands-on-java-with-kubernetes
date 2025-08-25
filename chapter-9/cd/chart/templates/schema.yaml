@@ -2,15 +2,23 @@
 apiVersion: db.atlasgo.io/v1alpha1
 kind: AtlasSchema
 metadata:
-  name: sample-spring-k8s
+  name: {{ .Release.Name }}
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
-  urlFrom:
-    secretKeyRef:
-      key: url
-      name: postgres-credentials
+  credentials:
+    scheme: postgres
+    host: postgresql-{{ .Values.env }}.{{ .Values.env }}
+    user: postgres
+    passwordFrom:
+      secretKeyRef:
+        key: postgres-password
+        name: postgresql-{{ .Values.env }}
+    database: postgres
+    port: 5432
+    parameters:
+      sslmode: disable
   schema:
     sql: |
       {{ .Values.databaseSchema }}
-{{- end }}
+  {{- end }}

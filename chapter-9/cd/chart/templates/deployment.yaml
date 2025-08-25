@@ -27,7 +27,7 @@ spec:
               protocol: TCP
           env:
             - name: SPRING_CONFIG_LOCATION
-              value: /opt/config-map/application.properties,/opt/secret/application.properties
+              value: /opt/config-map/application.properties,/opt/secret/application.properties,classpath:/application.properties
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
