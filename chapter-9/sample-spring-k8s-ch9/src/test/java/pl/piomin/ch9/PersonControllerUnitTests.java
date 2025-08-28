@@ -36,7 +36,7 @@ public class PersonControllerUnitTests {
         Person person = Instancio.of(Person.class).create();
         when(repository.save(Mockito.any(Person.class)))
                 .thenReturn(person);
-        mvc.perform(post("/").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(person)))
+        mvc.perform(post("/persons").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(person)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id", is(person.getId())));
@@ -46,7 +46,7 @@ public class PersonControllerUnitTests {
     public void testFind() throws Exception {
         Person person = Instancio.of(Person.class).create();
         when(repository.findById(person.getId())).thenReturn(Optional.of(person));
-        mvc.perform(get("/{}", person.getId()).contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/persons/{id}", person.getId()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.firstName", is(person.getFirstName())));
