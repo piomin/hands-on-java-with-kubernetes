@@ -2,7 +2,6 @@ apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: sample-spring-k8s-pipeline
-  namespace: tekton-pipelines
 spec:
   tasks:
     - name: git-clone
@@ -38,13 +37,15 @@ spec:
           value: https://sonarcloud.io
         - name: SONAR_PROJECT_KEY
           value: sample-spring-boot-web
+        - name: SONAR_SCANNER_IMAGE
+          value: 'docker.io/sonarsource/sonar-scanner-cli:latest'
       runAfter:
         - junit-tests
       taskRef:
         kind: Task
         name: sonarqube-scanner
       workspaces:
-        - name: source-dir
+        - name: source
           workspace: source-dir
         - name: sonar-settings
           workspace: sonar-settings
@@ -61,7 +62,9 @@ spec:
       params:
         - name: IMAGE
           value: >-
-            quay.io/pminkows/sample-spring-boot-web:$(tasks.get-version.results.version)
+            quay.io/pminkows/sample-spring-k8s:$(tasks.get-version.results.version)
+        - name: MAVEN_IMAGE
+          value: maven:3.9.9-eclipse-temurin-21
       runAfter:
         - get-version
       taskRef:
@@ -73,7 +76,8 @@ spec:
     - name: scan-image
       params:
         - name: ARGS
-          value: grype quay.io/pminkows/sample-spring-k8s:$(tasks.get-version.results.version)
+          value:
+            - quay.io/pminkows/sample-spring-k8s:$(tasks.get-version.results.version)
       runAfter:
         - build-and-push-image
       taskRef:
