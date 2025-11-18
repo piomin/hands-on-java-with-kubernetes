@@ -62,7 +62,13 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<imageName>piomin/sample-spring-k8s:buildpacks</imageName>
+					<image>
+						<name>piomin/sample-spring-k8s:buildpacks</name>
+						<env>
+							<BP_JVM_VERSION>21</BP_JVM_VERSION>
+						</env>
+						<publish>true</publish>
+					</image>
 				</configuration>
 			</plugin>
 		</plugins>
