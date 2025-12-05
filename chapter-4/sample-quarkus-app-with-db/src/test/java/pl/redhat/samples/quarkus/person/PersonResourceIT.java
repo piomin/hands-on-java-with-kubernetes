@@ -12,7 +12,7 @@ import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
-public class PersonResourceTests {
+public class PersonResourceIT {
 
     @Test
     void getPersons() {

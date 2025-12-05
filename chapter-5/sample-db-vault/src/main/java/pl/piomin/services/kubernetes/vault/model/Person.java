@@ -1,9 +1,8 @@
 package pl.piomin.services.kubernetes.vault.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
-//@Table(name = "persons")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

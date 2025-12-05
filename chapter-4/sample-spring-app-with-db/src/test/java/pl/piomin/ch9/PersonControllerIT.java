@@ -15,7 +15,7 @@ import pl.piomin.ch9.domain.Person;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class PersonControllerTests {
+public class PersonControllerIT {
 
     @Autowired
     TestRestTemplate restTemplate;

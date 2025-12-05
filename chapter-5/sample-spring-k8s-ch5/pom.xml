@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pl.piomin</groupId>
-	<artifactId>sample-spring-k8s-chno</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
-	<name>demo</name>
+	<artifactId>sample-spring-k8s-ch5</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>sample-spring-k8s-ch5</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

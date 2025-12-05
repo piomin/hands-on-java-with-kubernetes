@@ -12,7 +12,7 @@ import jakarta.inject.Inject;
 
 @QuarkusTest
 @TestTransaction
-public class PersonRepositoryTests {
+public class PersonRepositoryIT {
 
     @Inject
     PersonRepository personRepository;

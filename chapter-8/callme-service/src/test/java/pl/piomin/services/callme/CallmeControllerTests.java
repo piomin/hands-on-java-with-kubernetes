@@ -17,7 +17,7 @@ public class CallmeControllerTests {
     void ping() {
         String res = restTemplate.getForObject("/callme/ping", String.class);
         Assertions.assertNotNull(res);
-        Assertions.assertEquals("I'm callme-service v1", res);
+        Assertions.assertEquals("I'm callme-service localhost:v1", res);
     }
 
     @Test

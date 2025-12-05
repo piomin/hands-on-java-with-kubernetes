@@ -11,8 +11,8 @@
 
 	<groupId>pl.piomin</groupId>
 	<artifactId>sample-spring-k8s-ch1</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
+	<version>1.0-SNAPSHOT</version>
+	<name>sample-spring-k8s-ch1</name>
 	<description>Demo project for Spring Boot</description>
 
 	<dependencies>
