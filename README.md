@@ -1,5 +1,6 @@
 # Hands-On Java with Kubernetes [![Twitter](https://img.shields.io/twitter/follow/piotr_minkowski.svg?style=social&logo=twitter&label=Follow%20Me)](https://twitter.com/piotr_minkowski)
 
+<<<<<<< HEAD
 [![CircleCI](https://circleci.com/gh/piomin/hands-on-java-with-kubernetes.svg?style=svg)](https://circleci.com/gh/piomin/hands-on-java-with-kubernetes)
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=piomin_spring-microservices-kubernetes)
@@ -9,7 +10,7 @@
 
 This repository contains sample Java applications for "Hands-On Java with Kubernetes" book.
 
-To get a book do to the following website: [Hands-On Java with Kubernetes](https://leanpub.com/hands-on-java-with-kubernetes).
+To get a book, go to the following website: [Hands-On Java with Kubernetes](https://leanpub.com/hands-on-java-with-kubernetes).
 
 <img src="book.png" alt="Cover" style="width: 40%;" />
 
@@ -47,3 +48,5 @@ To build the apps with integration tests run the command below. But you need to 
 ```shell
 mvn clean verify
 ```
+=======
+>>>>>>> origin/master
