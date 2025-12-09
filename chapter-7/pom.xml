@@ -12,6 +12,10 @@
     <artifactId>chapter-7</artifactId>
     <packaging>pom</packaging>
 
+    <properties>
+        <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
+    </properties>
+
     <modules>
         <module>sample-quarkus-k8s-ch7</module>
         <module>sample-spring-kafka</module>

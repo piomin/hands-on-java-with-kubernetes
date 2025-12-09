@@ -18,6 +18,10 @@
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
         <quarkus.version>3.15.1</quarkus.version>
         <surefire-plugin.version>3.5.0</surefire-plugin.version>
+
+        <sonar.projectKey>piomin_hands-on-java-with-kubernetes</sonar.projectKey>
+        <sonar.organization>piomin</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <modules>

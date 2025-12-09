@@ -17,6 +17,7 @@
     <properties>
         <java.version>21</java.version>
         <testcontainers.version>1.19.7</testcontainers.version>
+        <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
 <!--        <jkube.container-image.name>piomin/${project.artifactId}:${project.version}</jkube.container-image.name>-->
     </properties>
 

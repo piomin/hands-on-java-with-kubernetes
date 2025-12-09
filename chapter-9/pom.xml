@@ -12,6 +12,10 @@
     <artifactId>chapter-9</artifactId>
     <packaging>pom</packaging>
 
+    <properties>
+        <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
+    </properties>
+
     <modules>
         <module>sample-spring-k8s-ch9</module>
     </modules>
