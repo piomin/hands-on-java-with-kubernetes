@@ -1,9 +1,9 @@
-package pl.piomin.resource;
+package pl.piomin.services.quarkus.person.resource;
 
-import pl.piomin.domain.Person;
-import pl.piomin.repository.PersonRepository;
+import org.jboss.logging.Logger;
+import pl.piomin.services.quarkus.person.model.Person;
+import pl.piomin.services.quarkus.person.repository.PersonRepository;
 
-import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -14,10 +14,12 @@ import java.util.List;
 @Path("/persons")
 public class PersonResource {
 
-    PersonRepository personRepository;
+    private Logger log;
+    private PersonRepository personRepository;
 
-    public PersonResource(PersonRepository personRepository) {
+    public PersonResource(PersonRepository personRepository, Logger log) {
         this.personRepository = personRepository;
+        this.log = log;
     }
 
     @POST
@@ -29,6 +31,7 @@ public class PersonResource {
 
     @GET
     public List<Person> getPersons() {
+        log.info("getPersons");
         return personRepository.listAll();
     }
 
