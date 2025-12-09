@@ -58,7 +58,8 @@ executors:
 workflows:
   build:
     jobs:
-      - maven/verify:
+      - maven/test:
+          command: 'verify'
           executor: machine_executor_amd64
       - analyze:
           context: SonarCloud
