@@ -14,9 +14,10 @@ jobs:
           name: Analyze on SonarCloud
           command: mvn verify sonar:sonar -DskipTests
   deploy-k8s:
-    executor: machine_executor_amd64
+    executor: vm
     steps:
       - checkout
+      - helm/install_helm_client
       - run:
           name: Install Kubectl
           command: |
@@ -32,7 +33,7 @@ jobs:
       - run:
           name: Install Kind
           command: |
-            [ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
+            [ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.31.0/kind-linux-amd64
             chmod +x ./kind
             sudo mv ./kind /usr/local/bin/kind
       - run:
@@ -40,9 +41,23 @@ jobs:
           command: |
             kind create cluster --name c1
       - run:
+          name: Install Helm Charts
+          command: |
+            helm repo add bitnami https://charts.bitnami.com/bitnami
+            helm repo add jetstack https://charts.jetstack.io
+            helm install my-db bitnami/postgresql
+            helm install cert-manager --namespace cert-manager --set crds.enabled=true --create-namespace jetstack/cert-manager
+#      - run:
+#          name: Docker Login
+#          command: |
+#            docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
+#          env:
+#            DOCKER_LOGIN: ${DOCKER_LOGIN}
+#            DOCKER_PASSWORD: ${DOCKER_PASSWORD}
+      - run:
           name: Deploy to K8s
           command: |
-            skaffold run
+            mvn clean package -Pkubernetes
       - run:
           name: Delete Kind Cluster
           command: |
@@ -50,10 +65,11 @@ jobs:
 
 orbs:
   maven: circleci/maven@2.1.1
+  helm: circleci/helm@3.2.0
   git-shallow-clone: guitarrapc/git-shallow-clone@2.8.0
 
 executors:
-  machine_executor_amd64:
+  vm:
     machine:
       image: ubuntu-2204:current
     environment:
@@ -68,4 +84,5 @@ workflows:
           executor: machine_executor_amd64
       - analyze:
           context: SonarCloud
-#      - deploy-k8s
+      - deploy-k8s:
+          context: Docker

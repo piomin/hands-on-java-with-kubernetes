@@ -50,7 +50,7 @@
             <version>1.0.2</version>
         </dependency>
 
-        <!--        <dependency>-->
+<!--        <dependency>-->
 <!--            <groupId>io.quarkus</groupId>-->
 <!--            <artifactId>quarkus-container-image-docker</artifactId>-->
 <!--        </dependency>-->
@@ -90,6 +90,11 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-kubernetes-client</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -158,6 +163,20 @@
             <properties>
                 <skipITs>false</skipITs>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
+            </properties>
+        </profile>
+        <profile>
+            <id>kubernetes</id>
+            <activation>
+                <property>
+                    <name>kubernetes</name>
+                </property>
+            </activation>
+            <properties>
+                <quarkus.kubernetes.deploy>true</quarkus.kubernetes.deploy>
+                <quarkus.container-image.username>${DOCKER_LOGIN}</quarkus.container-image.username>
+                <quarkus.container-image.password>${DOCKER_PASSWORD}</quarkus.container-image.password>
+                <quarkus.container-image.group>${DOCKER_LOGIN}</quarkus.container-image.group>
             </properties>
         </profile>
     </profiles>
