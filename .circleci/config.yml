@@ -81,7 +81,7 @@ workflows:
     jobs:
       - maven/test:
           command: 'verify'
-          executor: machine_executor_amd64
+          executor: vm
       - analyze:
           context: SonarCloud
       - deploy-k8s:
