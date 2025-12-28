@@ -98,19 +98,39 @@
                     <excludeDevtools>false</excludeDevtools>
                     <image>
                         <env>
-                            <!--                            <BPL_JVM_HEAP_PERCENT>70</BPL_JVM_HEAP_PERCENT>-->
                             <BPL_JVM_THREAD_COUNT>50</BPL_JVM_THREAD_COUNT>
                         </env>
                     </image>
                     <imageName>piomin/sample-spring-boot-on-kubernetes:${project.version}</imageName>
-                    <!--					<image>-->
-                    <!--						<builder>gcr.io/buildpacks/builder:v1</builder>-->
-                    <!--					</image>-->
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.cyclonedx</groupId>
-                <artifactId>cyclonedx-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.4</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*IT.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven-failsafe-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>**/*IT.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -147,21 +167,13 @@
                         <artifactId>jib-maven-plugin</artifactId>
                         <version>3.4.6</version>
                         <configuration>
-
-                            <!--                            <from>-->
-                            <!--                                <image>eclipse-temurin:21-jdk-ubi9-minimal</image>-->
-                            <!--                                <configuration>-->
                             <to>piomin/sample-spring-boot-on-kubernetes:${project.version}</to>
-                            <!--                                <allowInsecureRegistries>true</allowInsecureRegistries>-->
-                            <!--                                <to>172.17.0.2:5000/root/sample-spring-boot-on-kubernetes</to>-->
-                            <!--                            </from>-->
                             <container>
                                 <jvmFlags>
                                     <jvmFlag>-Xms256m</jvmFlag>
                                     <jvmFlag>-Xmx256m</jvmFlag>
                                 </jvmFlags>
                             </container>
-
                         </configuration>
                     </plugin>
                 </plugins>
