@@ -12,15 +12,7 @@
     <artifactId>sample-quarkus-k8s-ch6</artifactId>
 
     <properties>
-<!--        <compiler-plugin.version>3.13.0</compiler-plugin.version>-->
-<!--        <maven.compiler.release>21</maven.compiler.release>-->
-<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
-<!--        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
-<!--        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>-->
-<!--        <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>-->
         <quarkus.version>3.16.2</quarkus.version>
-<!--        <skipITs>true</skipITs>-->
-<!--        <surefire-plugin.version>3.5.0</surefire-plugin.version>-->
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
     </properties>
 

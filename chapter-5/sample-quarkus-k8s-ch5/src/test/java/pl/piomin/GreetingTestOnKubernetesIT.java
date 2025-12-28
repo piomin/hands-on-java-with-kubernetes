@@ -19,7 +19,7 @@ public class GreetingTestOnKubernetesIT {
     @Test
     void shouldBeDeployed() {
         Deployment deployment = client.apps().deployments()
-                .withName("sample-quarkus-k8s-ch1")
+                .withName("sample-quarkus-k8s-ch5")
                 .get();
         Assertions.assertNotNull(deployment);
     }
@@ -27,7 +27,7 @@ public class GreetingTestOnKubernetesIT {
     @Test
     void shouldRunning() {
         List<Pod> pods = client.pods()
-                .withLabel("app.kubernetes.io/name", "sample-quarkus-k8s-ch1")
+                .withLabel("app.kubernetes.io/name", "sample-quarkus-k8s-ch5")
                 .list()
                 .getItems();
         Assertions.assertEquals(1, pods.size());
