@@ -1,40 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>pl.piomin.services</groupId>
+        <artifactId>chapter-5</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>pl.piomin</groupId>
     <artifactId>sample-quarkus-k8s-ch5</artifactId>
-    <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
-        <compiler-plugin.version>3.13.0</compiler-plugin.version>
-        <maven.compiler.release>21</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>3.14.4</quarkus.platform.version>
-        <skipITs>true</skipITs>
-        <surefire-plugin.version>3.3.1</surefire-plugin.version>
+        <quarkus.version>3.14.4</quarkus.version>
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${quarkus.platform.group-id}</groupId>
-                <artifactId>${quarkus.platform.artifact-id}</artifactId>
-                <version>${quarkus.platform.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-rest</artifactId>
+            <artifactId>quarkus-rest-jackson</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -49,8 +34,7 @@
             <artifactId>quarkus-certmanager</artifactId>
             <version>1.0.2</version>
         </dependency>
-
-        <!--        <dependency>-->
+<!--        <dependency>-->
 <!--            <groupId>io.quarkus</groupId>-->
 <!--            <artifactId>quarkus-container-image-docker</artifactId>-->
 <!--        </dependency>-->
@@ -58,30 +42,14 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-container-image-jib</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-minikube</artifactId>
-        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>io.quarkus</groupId>-->
-<!--            <artifactId>quarkus-kind</artifactId>-->
+<!--            <artifactId>quarkus-minikube</artifactId>-->
 <!--        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.quarkus</groupId>-->
-<!--            <artifactId>quarkus-logging-json</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.quarkus</groupId>-->
-<!--            <artifactId>quarkus-smallrye-health</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.quarkus</groupId>-->
-<!--            <artifactId>quarkus-micrometer-registry-prometheus</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
@@ -92,14 +60,19 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-kubernetes-client</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>${quarkus.platform.group-id}</groupId>
+                <groupId>io.quarkus.platform</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${quarkus.platform.version}</version>
+                <version>${quarkus.version}</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -158,6 +131,27 @@
             <properties>
                 <skipITs>false</skipITs>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
+            </properties>
+        </profile>
+        <profile>
+            <id>kubernetes</id>
+            <activation>
+                <property>
+                    <name>kubernetes</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-kind</artifactId>
+                </dependency>
+            </dependencies>
+            <properties>
+                <quarkus.kubernetes.deploy>true</quarkus.kubernetes.deploy>
+                <quarkus.kubernetes.namespace>default</quarkus.kubernetes.namespace>
+                <quarkus.container-image.username>${DOCKER_LOGIN}</quarkus.container-image.username>
+                <quarkus.container-image.password>${DOCKER_PASSWORD}</quarkus.container-image.password>
+                <quarkus.container-image.group>${DOCKER_LOGIN}</quarkus.container-image.group>
             </properties>
         </profile>
     </profiles>
