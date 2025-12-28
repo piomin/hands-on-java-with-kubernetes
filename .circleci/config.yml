@@ -12,7 +12,7 @@ jobs:
           command: git fetch --no-filter --refetch
       - run:
           name: Analyze on SonarCloud
-          command: mvn verify sonar:sonar -DskipTests
+          command: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests
   deploy-k8s:
     executor: vm
     steps:
@@ -45,8 +45,10 @@ jobs:
           command: |
             helm repo add bitnami https://charts.bitnami.com/bitnami
             helm repo add jetstack https://charts.jetstack.io
+            helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
             helm install my-db bitnami/postgresql
             helm install cert-manager --namespace cert-manager --set crds.enabled=true --create-namespace jetstack/cert-manager
+            helm install my-kube-prometheus-stack prometheus-community/kube-prometheus-stack
 #      - run:
 #          name: Docker Login
 #          command: |
@@ -55,9 +57,10 @@ jobs:
 #            DOCKER_LOGIN: ${DOCKER_LOGIN}
 #            DOCKER_PASSWORD: ${DOCKER_PASSWORD}
       - run:
-          name: Deploy to K8s
+          name: Deploy and Test
           command: |
-            mvn clean package -Pkubernetes
+            mvn clean package -Pkubernetes -DskipTests
+            mvn verify
       - run:
           name: Delete Kind Cluster
           command: |
@@ -80,7 +83,7 @@ workflows:
   build:
     jobs:
       - maven/test:
-          command: 'verify'
+          command: 'test'
           executor: vm
       - analyze:
           context: SonarCloud
