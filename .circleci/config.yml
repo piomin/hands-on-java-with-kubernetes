@@ -48,7 +48,7 @@ jobs:
             helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
             helm install my-db bitnami/postgresql
             helm install cert-manager --namespace cert-manager --set crds.enabled=true --create-namespace jetstack/cert-manager
-            helm install my-kube-prometheus-stack prometheus-community/kube-prometheus-stack
+            helm install my-kube-prometheus-stack prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
 #      - run:
 #          name: Docker Login
 #          command: |
@@ -87,5 +87,5 @@ workflows:
           executor: vm
       - analyze:
           context: SonarCloud
-      - deploy-k8s:
-          context: Docker
+#      - deploy-k8s:
+#          context: Docker

@@ -61,6 +61,11 @@
             <artifactId>quarkus-kubernetes-client</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-kind</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -142,6 +147,7 @@
             </activation>
             <properties>
                 <quarkus.kubernetes.deploy>true</quarkus.kubernetes.deploy>
+                <quarkus.kubernetes.namespace>default</quarkus.kubernetes.namespace>
                 <quarkus.container-image.username>${DOCKER_LOGIN}</quarkus.container-image.username>
                 <quarkus.container-image.password>${DOCKER_PASSWORD}</quarkus.container-image.password>
                 <quarkus.container-image.group>${DOCKER_LOGIN}</quarkus.container-image.group>

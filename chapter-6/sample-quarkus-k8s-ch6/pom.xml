@@ -1,34 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>pl.piomin.services</groupId>
+        <artifactId>chapter-6</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>pl.piomin</groupId>
     <artifactId>sample-quarkus-k8s-ch6</artifactId>
-    <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <compiler-plugin.version>3.13.0</compiler-plugin.version>
-        <maven.compiler.release>21</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>3.16.2</quarkus.platform.version>
-        <skipITs>true</skipITs>
-        <surefire-plugin.version>3.5.0</surefire-plugin.version>
+<!--        <compiler-plugin.version>3.13.0</compiler-plugin.version>-->
+<!--        <maven.compiler.release>21</maven.compiler.release>-->
+<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+<!--        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
+<!--        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>-->
+<!--        <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>-->
+        <quarkus.version>3.16.2</quarkus.version>
+<!--        <skipITs>true</skipITs>-->
+<!--        <surefire-plugin.version>3.5.0</surefire-plugin.version>-->
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${quarkus.platform.group-id}</groupId>
-                <artifactId>${quarkus.platform.artifact-id}</artifactId>
-                <version>${quarkus.platform.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -75,9 +69,9 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>${quarkus.platform.group-id}</groupId>
+                <groupId>io.quarkus.platform</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${quarkus.platform.version}</version>
+                <version>${quarkus.version}</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -149,8 +143,15 @@
                     <name>kubernetes</name>
                 </property>
             </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-kind</artifactId>
+                </dependency>
+            </dependencies>
             <properties>
                 <quarkus.kubernetes.deploy>true</quarkus.kubernetes.deploy>
+                <quarkus.kubernetes.namespace>default</quarkus.kubernetes.namespace>
                 <quarkus.container-image.username>${DOCKER_LOGIN}</quarkus.container-image.username>
                 <quarkus.container-image.password>${DOCKER_PASSWORD}</quarkus.container-image.password>
                 <quarkus.container-image.group>${DOCKER_LOGIN}</quarkus.container-image.group>
