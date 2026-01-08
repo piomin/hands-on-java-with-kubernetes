@@ -12,7 +12,7 @@
     <artifactId>sample-quarkus-k8s-ch6</artifactId>
 
     <properties>
-        <quarkus.version>3.16.2</quarkus.version>
+<!--        <quarkus.version>3.16.2</quarkus.version>-->
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
     </properties>
 

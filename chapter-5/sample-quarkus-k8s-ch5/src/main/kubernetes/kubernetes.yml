@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-quarkus-k8s
+  name: sample-quarkus-k8s-ch5
 spec:
   template:
     volumes:
@@ -19,10 +19,10 @@ metadata:
 data:
   password: MTIzNDU2
 type: Opaque
-#---
-#apiVersion: cert-manager.io/v1
-#kind: ClusterIssuer
-#metadata:
-#  name: ss-cluster-issuer
-#spec:
-#  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: ss-cluster-issuer
+spec:
+  selfSigned: {}
