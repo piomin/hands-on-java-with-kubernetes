@@ -141,6 +141,7 @@
             <properties>
                 <quarkus.kubernetes.deploy>true</quarkus.kubernetes.deploy>
                 <quarkus.kubernetes.namespace>default</quarkus.kubernetes.namespace>
+                <quarkus.kubernetes-client.namespace>default</quarkus.kubernetes-client.namespace>
                 <quarkus.container-image.username>${DOCKER_LOGIN}</quarkus.container-image.username>
                 <quarkus.container-image.password>${DOCKER_PASSWORD}</quarkus.container-image.password>
                 <quarkus.container-image.group>${DOCKER_LOGIN}</quarkus.container-image.group>

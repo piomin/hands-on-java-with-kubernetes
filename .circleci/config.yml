@@ -96,5 +96,5 @@ workflows:
           executor: vm
       - analyze:
           context: SonarCloud
-#      - deploy-k8s:
-#          context: Docker
+      - deploy-k8s:
+          context: Docker

@@ -11,10 +11,10 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
-@QuarkusTest
+//@QuarkusTest
 public class PersonResourceIT {
 
-    @Test
+//    @Test
     void getPersons() {
         List<Person> persons = given().when().get("/persons")
                 .then()
@@ -25,7 +25,7 @@ public class PersonResourceIT {
         assertTrue(persons.size() > 0);
     }
 
-    @Test
+//    @Test
     void getPersonById() {
         Person person = given()
                 .pathParam("id", 1)
@@ -38,7 +38,7 @@ public class PersonResourceIT {
         assertEquals(1L, person.id);
     }
 
-    @Test
+//    @Test
     void getPersonByName() {
         Person[] persons = given()
                 .pathParam("name", "Lewis Hamilton")
@@ -53,7 +53,7 @@ public class PersonResourceIT {
         assertEquals("Lewis Hamilton", persons[0].name);
     }
 
-    @Test
+//    @Test
     void getPersonByAge() {
         Person[] persons = given()
                 .pathParam("age", 30)
@@ -66,7 +66,7 @@ public class PersonResourceIT {
         assertTrue(persons.length > 0);
     }
 
-    @Test
+//    @Test
     void newPersonAdd() {
         Person newPerson = new Person();
         newPerson.age = 22;

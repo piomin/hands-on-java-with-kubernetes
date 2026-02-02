@@ -24,12 +24,12 @@ public class ConfigResourceTest {
             ConfigMapBuilder cb = new ConfigMapBuilder();
             cb.withNewMetadata().withName("sample-quarkus-k8s").endMetadata();
             cb.addToData(Map.of("application.properties", "simple.property = 123"));
-            server.getClient().configMaps().inNamespace("test").create(cb.build());
+            server.getClient().configMaps().inNamespace("default").create(cb.build());
 
             SecretBuilder sb = new SecretBuilder();
             sb.withNewMetadata().withName("sample-quarkus-k8s").endMetadata();
             sb.addToData(Map.of("application.properties", "c2VjdXJlLnByb3BlcnR5ID0gNDU2"));
-            server.getClient().secrets().inNamespace("test").create(sb.build());
+            server.getClient().secrets().inNamespace("default").create(sb.build());
         }
     }
 

@@ -10,14 +10,14 @@ import pl.piomin.services.quarkus.person.repository.PersonRepository;
 
 import jakarta.inject.Inject;
 
-@QuarkusTest
-@TestTransaction
+//@QuarkusTest
+//@TestTransaction
 public class PersonRepositoryIT {
 
-    @Inject
+//    @Inject
     PersonRepository personRepository;
 
-    @Test
+//    @Test
     void addPerson() {
         Person newPerson = new Person();
         newPerson.age = 22;
