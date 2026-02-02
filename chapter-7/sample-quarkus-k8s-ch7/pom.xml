@@ -129,10 +129,12 @@
             </dependencies>
         </profile>
         <profile>
-            <id>kubernetes</id>
+            <id>knative</id>
+<!--            <id>kubernetes</id>-->
             <activation>
                 <property>
-                    <name>kubernetes</name>
+                    <name>knative</name>
+<!--                    <name>kubernetes</name>-->
                 </property>
             </activation>
             <dependencies>
