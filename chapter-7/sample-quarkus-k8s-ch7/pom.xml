@@ -140,6 +140,10 @@
                     <groupId>io.quarkus</groupId>
                     <artifactId>quarkus-kind</artifactId>
                 </dependency>
+                <dependency>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-container-image-jib</artifactId>
+                </dependency>
             </dependencies>
             <properties>
                 <quarkus.kubernetes.deploy>true</quarkus.kubernetes.deploy>
