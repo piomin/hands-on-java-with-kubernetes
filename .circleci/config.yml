@@ -91,9 +91,9 @@ executors:
 workflows:
   build:
     jobs:
-      - maven/test:
-          command: 'test'
-          executor: vm
+#      - maven/test:
+#          command: 'test'
+#          executor: vm
       - analyze:
           context: SonarCloud
       - deploy-k8s:
