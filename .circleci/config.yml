@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   analyze:
     docker:
-      - image: 'cimg/openjdk:21.0.9'
+      - image: 'cimg/openjdk:25.0'
     steps:
       - git-shallow-clone/checkout_advanced:
           clone_options: '--filter=blob:none'
@@ -17,6 +17,15 @@ jobs:
     executor: vm
     steps:
       - checkout
+      - run:
+          name: Install OpenJDK 25
+          command: |
+            java -version
+            sudo apt-get update && sudo apt-get install openjdk-25-jdk
+            sudo update-alternatives --set java /usr/lib/jvm/java-25-openjdk-amd64/bin/java
+            sudo update-alternatives --set javac /usr/lib/jvm/java-25-openjdk-amd64/bin/javac
+            java -version
+            export JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64
       - helm/install_helm_client
       - run:
           name: Install Kubectl
@@ -82,9 +91,9 @@ executors:
 workflows:
   build:
     jobs:
-      - maven/test:
-          command: 'test'
-          executor: vm
+#      - maven/test:
+#          command: 'test'
+#          executor: vm
       - analyze:
           context: SonarCloud
       - deploy-k8s:

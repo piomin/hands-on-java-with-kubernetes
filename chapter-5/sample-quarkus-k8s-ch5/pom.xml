@@ -10,6 +10,7 @@
 
     <groupId>pl.piomin</groupId>
     <artifactId>sample-quarkus-k8s-ch5</artifactId>
+    <packaging>quarkus</packaging>
 
     <properties>
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
@@ -73,16 +74,16 @@
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <version>${quarkus.version}</version>
                 <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build</goal>
-                            <goal>generate-code</goal>
-                            <goal>generate-code-tests</goal>
-                            <goal>native-image-agent</goal>
-                        </goals>
-                    </execution>
-                </executions>
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                            <goal>generate-code</goal>-->
+<!--                            <goal>generate-code-tests</goal>-->
+<!--                            <goal>native-image-agent</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -128,6 +129,7 @@
                 </property>
             </activation>
             <properties>
+                <quarkus.package.jar.enabled>false</quarkus.package.jar.enabled>
                 <skipITs>false</skipITs>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
             </properties>
