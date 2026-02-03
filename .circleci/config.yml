@@ -68,17 +68,8 @@ jobs:
       - run:
           name: Deploy and Test
           command: |
-            set +e
-            
-            skaffold run --assume-yes=true --auto-create-config=false
-            STATUS=$?
-            if [ $STATUS -ne 0 ]; then
-              mvn clean package -Pkubernetes -DskipTests
-              mvn verify
-            else
-              mvn verify
-              skaffold delete
-            fi
+            mvn clean package -Pkubernetes -DskipTests
+            mvn verify
       - run:
           name: Delete Kind Cluster
           command: |

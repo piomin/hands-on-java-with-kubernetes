@@ -1,35 +1,35 @@
-apiVersion: skaffold/v2beta22
+apiVersion: skaffold/v4beta13
 kind: Config
 metadata:
   name: sample-spring-boot-on-kubernetes
 build:
   artifacts:
-  - image: piomin/sample-spring-boot-on-kubernetes
-    jib:
-      args:
-      - -Pjib
-      - -DskipTests
+    - image: piomin/sample-spring-boot-on-kubernetes
+      jib:
+        args:
+          - -Pjib
+          - -DskipTests
+manifests:
+  rawYaml:
+    - k8s/mongodb-deployment.yaml
+    - k8s/deployment.yaml
 deploy:
-  kubectl:
-    manifests:
-      - k8s/mongodb-deployment.yaml
-      - k8s/deployment.yaml
+  kubectl: {}
 profiles:
-- name: knative
-  deploy:
-    kubectl:
-      manifests:
-      - k8s/knative-service.yaml
-- name: buildpacks
-  build:
-    artifacts:
-      - image: piomin/sample-spring-boot-on-kubernetes
-        buildpacks:
-          builder: paketobuildpacks/builder:base
+  - name: knative
+    manifests:
+      rawYaml:
+        - k8s/knative-service.yaml
+    deploy:
+      kubectl: {}
+  - name: buildpacks
+    build:
+      artifacts:
+        - image: piomin/sample-spring-boot-on-kubernetes
           buildpacks:
-            - paketo-buildpacks/adoptium
-            - paketo-buildpacks/java
-          env:
-            - BP_JVM_VERSION=21
-
-
+            builder: paketobuildpacks/builder:base
+            env:
+              - BP_JVM_VERSION=21
+            buildpacks:
+              - paketo-buildpacks/adoptium
+              - paketo-buildpacks/java

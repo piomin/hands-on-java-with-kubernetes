@@ -1,35 +1,32 @@
-apiVersion: skaffold/v4beta11
+apiVersion: skaffold/v4beta13
 kind: Config
 metadata:
   name: sample-spring-app-with-db
 build:
-  local:
-    push: false
   artifacts:
     - image: piomin/sample-spring-app-with-db
       buildpacks:
         builder: paketobuildpacks/builder-jammy-base:latest
         env:
-          - "BP_JVM_VERSION=21"
+          - BP_JVM_VERSION=21
+  local:
+    push: false
 manifests:
   helm:
     releases:
       - name: sample-spring-app-with-db
         remoteChart: spring-boot-api-app
-        repo: https://piomin.github.io/helm-charts
         setValues:
-          image:
-            repository: piomin/sample-spring-app-with-db
-            tag: latest
-          envs:
-            - name: DATABASE_USER
-              value: spring
-            - name: DATABASE_NAME
-              value: spring
-          extraEnvVarsSecret:
-            - envVarName: DATABASE_PASS
-              key: password
-              name: person-db-postgresql
+          envs[0].name: DATABASE_USER
+          envs[0].value: spring
+          envs[1].name: DATABASE_NAME
+          envs[1].value: spring
+          extraEnvVarsSecret[0].envVarName: DATABASE_PASS
+          extraEnvVarsSecret[0].key: password
+          extraEnvVarsSecret[0].name: person-db-postgresql
+          image.repository: piomin/sample-spring-app-with-db
+          image.tag: latest
+        repo: https://piomin.github.io/helm-charts
 profiles:
   - name: postgres
     deploy:
@@ -38,8 +35,7 @@ profiles:
           - name: person-db
             remoteChart: postgresql
             version: 16.0.1
-            repo: https://charts.bitnami.com/bitnami
-            wait: false
             setValues:
-              auth.username: spring
               auth.database: spring
+              auth.username: spring
+            repo: https://charts.bitnami.com/bitnami
