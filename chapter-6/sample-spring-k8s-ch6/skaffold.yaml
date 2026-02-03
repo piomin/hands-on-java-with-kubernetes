@@ -4,7 +4,7 @@ metadata:
   name: sample-spring-k8s
 build:
   artifacts:
-    - image: piomin/sample-spring-k8s
+    - image: piomin/sample-spring-k8s-ch6
       jib:
         args:
           - -DskipTests

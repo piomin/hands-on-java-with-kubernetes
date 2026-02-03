@@ -26,22 +26,10 @@ profiles:
       - image: piomin/sample-spring-boot-on-kubernetes
         buildpacks:
           builder: paketobuildpacks/builder:base
-#          builder: gcr.io/buildpacks/builder:v1
-#          builder: heroku/buildpacks:20
           buildpacks:
-#            - paketo-buildpacks/eclipse-openj9
-#            - paketo-buildpacks/amazon-corretto
-#            - paketo-buildpacks/oracle
             - paketo-buildpacks/adoptium
-#            - paketo-buildpacks/azul-zulu
-#            - paketo-buildpacks/alibaba-dragonwell
-#            - paketo-buildpacks/microsoft-openjdk
             - paketo-buildpacks/java
           env:
-            - BP_JVM_VERSION=17
-#            - GOOGLE_RUNTIME_VERSION=17
-#    tagPolicy:
-#      envTemplate:
-#        template: "{{.VENDOR}}"
+            - BP_JVM_VERSION=21
 
 

@@ -5,8 +5,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>3.5.10</version>
+		<relativePath/>
 	</parent>
 
 	<properties>
@@ -67,7 +67,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<name>piomin/sample-spring-k8s:buildpacks</name>
+						<name>piomin/sample-spring-k8s-ch1:buildpacks</name>
 						<env>
 							<BP_JVM_VERSION>21</BP_JVM_VERSION>
 						</env>
@@ -77,5 +77,20 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>kubernetes</id>
+			<activation>
+				<property>
+					<name>kubernetes</name>
+				</property>
+			</activation>
+			<properties>
+				<dekorate.deploy>true</dekorate.deploy>
+				<dekorate.jib.group>piomin</dekorate.jib.group>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>
