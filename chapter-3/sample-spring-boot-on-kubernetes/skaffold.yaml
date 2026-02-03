@@ -1,47 +1,35 @@
-apiVersion: skaffold/v2beta22
+apiVersion: skaffold/v4beta13
 kind: Config
 metadata:
   name: sample-spring-boot-on-kubernetes
 build:
   artifacts:
-  - image: piomin/sample-spring-boot-on-kubernetes
-    jib:
-      args:
-      - -Pjib
-      - -DskipTests
+    - image: piomin/sample-spring-boot-on-kubernetes
+      jib:
+        args:
+          - -Pjib
+          - -DskipTests
+manifests:
+  rawYaml:
+    - k8s/mongodb-deployment.yaml
+    - k8s/deployment.yaml
 deploy:
-  kubectl:
-    manifests:
-      - k8s/mongodb-deployment.yaml
-      - k8s/deployment.yaml
+  kubectl: {}
 profiles:
-- name: knative
-  deploy:
-    kubectl:
-      manifests:
-      - k8s/knative-service.yaml
-- name: buildpacks
-  build:
-    artifacts:
-      - image: piomin/sample-spring-boot-on-kubernetes
-        buildpacks:
-          builder: paketobuildpacks/builder:base
-#          builder: gcr.io/buildpacks/builder:v1
-#          builder: heroku/buildpacks:20
+  - name: knative
+    manifests:
+      rawYaml:
+        - k8s/knative-service.yaml
+    deploy:
+      kubectl: {}
+  - name: buildpacks
+    build:
+      artifacts:
+        - image: piomin/sample-spring-boot-on-kubernetes
           buildpacks:
-#            - paketo-buildpacks/eclipse-openj9
-#            - paketo-buildpacks/amazon-corretto
-#            - paketo-buildpacks/oracle
-            - paketo-buildpacks/adoptium
-#            - paketo-buildpacks/azul-zulu
-#            - paketo-buildpacks/alibaba-dragonwell
-#            - paketo-buildpacks/microsoft-openjdk
-            - paketo-buildpacks/java
-          env:
-            - BP_JVM_VERSION=17
-#            - GOOGLE_RUNTIME_VERSION=17
-#    tagPolicy:
-#      envTemplate:
-#        template: "{{.VENDOR}}"
-
-
+            builder: paketobuildpacks/builder:base
+            env:
+              - BP_JVM_VERSION=21
+            buildpacks:
+              - paketo-buildpacks/adoptium
+              - paketo-buildpacks/java

@@ -1,10 +1,10 @@
-apiVersion: skaffold/v4beta11
+apiVersion: skaffold/v4beta13
 kind: Config
 metadata:
-  name: sample-spring-k8s
+  name: sample-spring-k8s-ch5
 build:
   artifacts:
-    - image: piomin/sample-spring-k8s
+    - image: piomin/sample-spring-k8s-ch5
       jib:
         args:
           - -DskipTests
@@ -13,4 +13,3 @@ manifests:
     - k8s/configmap.yaml
     - k8s/deployment.yaml
     - k8s/service.yaml
-#    - k8s/secret.yaml

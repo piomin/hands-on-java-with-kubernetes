@@ -1,8 +1,5 @@
 package pl.piomin.services.caller;
 
-//import brave.Tracing;
-//import brave.baggage.BaggageField;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +13,9 @@ public class CallerApplication {
 	}
 
 	@Bean
-	RestClient restClient(RestClient.Builder restClientBuilder) {
-		return restClientBuilder.build();
+	RestClient restClient() {
+		return RestClient.builder()
+				.build();
 	}
 	
 }
