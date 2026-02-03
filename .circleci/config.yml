@@ -68,6 +68,8 @@ jobs:
       - run:
           name: Deploy and Test
           command: |
+            set +e
+            
             skaffold run --assume-yes=true --auto-create-config=false
             STATUS=$?
             if [ $STATUS -ne 0 ]; then
