@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-app-deployment
+  name: sample-db-vault
 spec:
   selector:
     matchLabels:
-      app: sample-app
+      app: sample-db-vault
   template:
     metadata:
       labels:
-        app: sample-app
+        app: sample-db-vault
     spec:
       containers:
-      - name: sample-app
-        image: piomin/sample-app
+      - name: sample-db-vault
+        image: piomin/sample-db-vault
         ports:
         - containerPort: 8080
       serviceAccountName: spring-app
@@ -21,11 +21,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sample-app-service
+  name: sample-db-vault
 spec:
   type: ClusterIP
   selector:
-    app: sample-app
+    app: sample-db-vault
   ports:
   - port: 8080
 

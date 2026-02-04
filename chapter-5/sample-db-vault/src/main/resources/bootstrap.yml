@@ -24,15 +24,3 @@ spring:
   liquibase:
     change-log:
       classpath:changelog/changeLog.sql
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: "*"
-#  endpoint.health:
-#    show-details: always
-#    group:
-#      readiness:
-#        include: db
-#    probes:
-#      enabled: true

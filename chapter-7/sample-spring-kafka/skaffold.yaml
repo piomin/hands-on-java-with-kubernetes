@@ -5,7 +5,9 @@ metadata:
 build:
   artifacts:
     - image: piomin/spring-kafka-consumer
-      jib: {}
+      jib:
+        args:
+          - -DskipTests
 manifests:
   rawYaml:
     - k8s/**.yaml

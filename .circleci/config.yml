@@ -58,13 +58,13 @@ jobs:
             helm install my-db bitnami/postgresql
             helm install cert-manager --namespace cert-manager --set crds.enabled=true --create-namespace jetstack/cert-manager
             helm install my-kube-prometheus-stack prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
-#      - run:
-#          name: Docker Login
-#          command: |
-#            docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
-#          env:
-#            DOCKER_LOGIN: ${DOCKER_LOGIN}
-#            DOCKER_PASSWORD: ${DOCKER_PASSWORD}
+      - run:
+          name: Docker Login
+          command: |
+            docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
+          env:
+            DOCKER_LOGIN: ${DOCKER_LOGIN}
+            DOCKER_PASSWORD: ${DOCKER_PASSWORD}
       - run:
           name: Deploy and Test
           command: |
@@ -74,6 +74,22 @@ jobs:
           name: Delete Kind Cluster
           command: |
             kind delete cluster --name c1
+      - run:
+          name: Create Kind Cluster
+          command: |
+            kind create cluster --name c2
+      - run:
+          name: Deploy and Test
+          command: |
+            cd chapter-1/sample-spring-k8s-ch1
+            mvn clean package -DskipTests -Ddekorate.deploy=true -Ddekorate.jib.group=piomin -Ddekorate.jib.docker-build=false
+            cd ../../chapter-7/sample-spring-kafka
+            skaffold run
+            skaffold delete
+      - run:
+          name: Delete Kind Cluster
+          command: |
+            kind delete cluster --name c2
 
 orbs:
   maven: circleci/maven@2.1.1

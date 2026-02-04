@@ -58,7 +58,7 @@
 				<artifactId>jib-maven-plugin</artifactId>
 				<configuration>
 					<from>
-						<image>bellsoft/liberica-openjdk-debian:21.0.9</image>
+						<image>bellsoft/liberica-openjdk-debian:25</image>
 					</from>
 				</configuration>
 			</plugin>
@@ -69,7 +69,7 @@
 					<image>
 						<name>piomin/sample-spring-k8s-ch1:buildpacks</name>
 						<env>
-							<BP_JVM_VERSION>21</BP_JVM_VERSION>
+							<BP_JVM_VERSION>25</BP_JVM_VERSION>
 						</env>
 						<publish>true</publish>
 					</image>

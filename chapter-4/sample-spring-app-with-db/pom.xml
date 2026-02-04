@@ -15,7 +15,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <testcontainers.version>2.0.3</testcontainers.version>
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
 <!--        <jkube.container-image.name>piomin/${project.artifactId}:${project.version}</jkube.container-image.name>-->
@@ -46,7 +46,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.6.0</version>
+            <version>3.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

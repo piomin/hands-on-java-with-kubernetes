@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-kafka-consumer
+  name: sample-spring-kafka
 spec:
   selector:
     matchLabels:
-      app: spring-kafka-consumer
+      app: sample-spring-kafka
   template:
     metadata:
       labels:
-        app: spring-kafka-consumer
+        app: sample-spring-kafka
     spec:
       containers:
-      - name: spring-kafka-consumer
-        image: piomin/spring-kafka-consumer
+      - name: sample-spring-kafka
+        image: piomin/sample-spring-kafka
         resources:
           requests:
             memory: 200Mi
