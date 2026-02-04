@@ -1,11 +1,13 @@
 apiVersion: skaffold/v4beta13
 kind: Config
 metadata:
-  name: spring-kafka-consumer
+  name: sample-spring-kafka
 build:
   artifacts:
-    - image: piomin/spring-kafka-consumer
-      jib: {}
+    - image: piomin/sample-spring-kafka
+      jib:
+        args:
+          - -DskipTests
 manifests:
   rawYaml:
     - k8s/**.yaml

@@ -14,7 +14,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <testcontainers.version>2.0.3</testcontainers.version>
         <surefire-plugin.version>3.5.3</surefire-plugin.version>
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
@@ -171,7 +171,7 @@
                     <plugin>
                         <groupId>com.google.cloud.tools</groupId>
                         <artifactId>jib-maven-plugin</artifactId>
-                        <version>3.4.6</version>
+                        <version>3.5.1</version>
                         <configuration>
                             <to>piomin/sample-spring-boot-on-kubernetes:${project.version}</to>
                             <container>
