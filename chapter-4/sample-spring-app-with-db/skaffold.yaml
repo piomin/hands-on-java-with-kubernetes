@@ -8,7 +8,7 @@ build:
       buildpacks:
         builder: paketobuildpacks/builder-jammy-base:latest
         env:
-          - BP_JVM_VERSION=21
+          - BP_JVM_VERSION=25
   local:
     push: false
 manifests:
