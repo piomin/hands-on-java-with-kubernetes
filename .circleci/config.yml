@@ -86,9 +86,6 @@ jobs:
             cd ../../chapter-7/sample-spring-kafka
             skaffold run
             skaffold delete
-            cd ../../chapter-4/sample-spring-app-with-db
-            skaffold run
-            skaffold delete
             cd ../../chapter-8/calme-service
             skaffold run
             skaffold delete

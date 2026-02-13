@@ -8,19 +8,22 @@ spring:
 #      ddl-auto: update
   cloud:
     vault:
-      config.lifecycle:
-        enabled: true
-        min-renewal: 10s
-        expiry-threshold: 30s
-      kv.enabled: false
+      config:
+        lifecycle:
+          enabled: true
+          min-renewal: 10s
+          expiry-threshold: 30s
+      kv:
+        enabled: false
       uri: http://vault.vault:8200
       authentication: KUBERNETES
-      postgresql:
+      database:
         enabled: true
         role: default
         backend: database
+        username-property: spring.datasource.username
+        password-property: spring.datasource.password
       kubernetes:
         role: internal-app
   liquibase:
-    change-log:
-      classpath:changelog/changeLog.sql
+    change-log: classpath:changelog/changeLog.sql

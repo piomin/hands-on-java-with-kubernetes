@@ -13,7 +13,7 @@ import java.util.List;
 public class PersonController {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonController.class);
-    private PersonRepository repository;
+    private final PersonRepository repository;
 
     public PersonController(PersonRepository repository) {
         this.repository = repository;
@@ -26,7 +26,7 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public Person getById(@PathVariable("id") Integer id) {
+    public Person getById(@PathVariable Integer id) {
         LOG.info("Get person by id={}", id);
         return repository.findById(id).orElseThrow();
     }
