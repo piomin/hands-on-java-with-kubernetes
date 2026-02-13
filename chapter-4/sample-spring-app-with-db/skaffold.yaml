@@ -6,11 +6,11 @@ build:
   artifacts:
     - image: piomin/sample-spring-app-with-db
       buildpacks:
-        builder: paketobuildpacks/builder-jammy-base:latest
+        builder: paketobuildpacks/builder-noble-java-tiny:latest
         env:
           - BP_JVM_VERSION=25
-  local:
-    push: false
+#  local:
+#    push: false
 manifests:
   helm:
     releases:
