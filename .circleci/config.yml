@@ -86,7 +86,10 @@ jobs:
             cd ../../chapter-7/sample-spring-kafka
             skaffold run
             skaffold delete
-            cd ../../chapter-8/calme-service
+            cd ../../chapter-8/callme-service
+            skaffold run
+            skaffold delete
+            cd ../../chapter-3/sample-spring-boot-on-kubernetes
             skaffold run
             skaffold delete
       - run:
