@@ -11,7 +11,7 @@ public class AdminConfiguration {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests((authorizeRequests) -> authorizeRequests.anyRequest().permitAll())
-                .csrf().disable()
+                .csrf(csrf -> csrf.disable())
                 .build();
     }
 }
