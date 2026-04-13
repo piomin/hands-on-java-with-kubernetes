@@ -18,7 +18,7 @@
     <properties>
         <java.version>25</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <micrometer-tracing.version>1.6.4</micrometer-tracing.version>
+        <micrometer-tracing.version>1.6.5</micrometer-tracing.version>
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
     </properties>
 
