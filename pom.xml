@@ -17,7 +17,7 @@
 
         <compiler-plugin.version>3.15.0</compiler-plugin.version>
         <quarkus.version>3.38.2</quarkus.version>
-        <surefire-plugin.version>3.5.6</surefire-plugin.version>
+        <surefire-plugin.version>3.6.0</surefire-plugin.version>
 
         <sonar.projectKey>piomin_hands-on-java-with-kubernetes</sonar.projectKey>
         <sonar.organization>piomin</sonar.organization>
