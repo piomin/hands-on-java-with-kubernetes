@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.5</version>
+        <version>4.1.1</version>
         <relativePath/>
     </parent>
 
@@ -18,7 +18,7 @@
     <properties>
         <java.version>25</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <micrometer-tracing.version>1.4.1</micrometer-tracing.version>
+        <micrometer-tracing.version>1.7.1</micrometer-tracing.version>
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
     </properties>
 
@@ -77,7 +77,7 @@
                     <plugin>
                         <groupId>com.google.cloud.tools</groupId>
                         <artifactId>jib-maven-plugin</artifactId>
-                        <version>3.5.1</version>
+                        <version>3.5.2</version>
                     </plugin>
                 </plugins>
             </build>
