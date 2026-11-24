@@ -52,7 +52,7 @@ public class CallmeController {
 
     @GetMapping("/ping-with-random-delay")
     public String pingWithRandomDelay() throws InterruptedException {
-        int r = new Random().nextInt(1000, 5000);
+        int r = new Random().nextInt(0, 1000);
         int i = index.incrementAndGet();
         LOGGER.info("Ping with random delay: id={}, name={}, version={}, delay={}", i,
                 hostname, version, r);
