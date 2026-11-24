@@ -11,8 +11,12 @@ spec:
         - name: revision
           value: master
       taskRef:
-        kind: Task
-        name: git-clone
+        resolver: hub
+        params:
+          - name: name
+            value: git-clone
+          - name: version
+            value: "0.10.0"
       workspaces:
         - name: output
           workspace: source-dir
@@ -24,8 +28,12 @@ spec:
       runAfter:
         - git-clone
       taskRef:
-        kind: Task
-        name: maven
+        resolver: hub
+        params:
+          - name: name
+            value: maven
+          - name: version
+            value: "0.4.0"
       workspaces:
         - name: source
           workspace: source-dir
@@ -42,8 +50,12 @@ spec:
       runAfter:
         - junit-tests
       taskRef:
-        kind: Task
-        name: sonarqube-scanner
+        resolver: hub
+        params:
+          - name: name
+            value: sonarqube-scanner
+          - name: version
+            value: "0.4.0"
       workspaces:
         - name: source
           workspace: source-dir
@@ -68,8 +80,12 @@ spec:
       runAfter:
         - get-version
       taskRef:
-        kind: Task
-        name: jib-maven
+        resolver: hub
+        params:
+          - name: name
+            value: jib-maven
+          - name: version
+            value: "0.5.0"
       workspaces:
         - name: source
           workspace: source-dir
@@ -81,8 +97,12 @@ spec:
       runAfter:
         - build-and-push-image
       taskRef:
-        kind: Task
-        name: grype
+        resolver: hub
+        params:
+          - name: name
+            value: grype
+          - name: version
+            value: "0.1.0"
   workspaces:
     - name: source-dir
     - name: sonar-settings
