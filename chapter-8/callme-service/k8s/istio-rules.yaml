@@ -39,10 +39,10 @@ spec:
         - destination:
             host: callme-service
             subset: v1
-      timeout: 8.5s
+      timeout: 2s
       retries:
         attempts: 3
-        perTryTimeout: 2s
+        perTryTimeout: 0.5s
         retryOn: connect-failure,refused-stream,unavailable,cancelled,5xx
     - match:
         - headers:
@@ -52,10 +52,10 @@ spec:
         - destination:
             host: callme-service
             subset: v2
-      timeout: 8.5s
+      timeout: 2s
       retries:
         attempts: 3
-        perTryTimeout: 2s
+        perTryTimeout: 0.5s
         retryOn: connect-failure,refused-stream,unavailable,cancelled,5xx
     - match:
         - withoutHeaders:
@@ -69,8 +69,8 @@ spec:
             host: callme-service
             subset: v1
           weight: 20
-      timeout: 8.5s
+      timeout: 2s
       retries:
         attempts: 3
-        perTryTimeout: 2s
+        perTryTimeout: 0.5s
         retryOn: connect-failure,refused-stream,unavailable,cancelled,5xx
