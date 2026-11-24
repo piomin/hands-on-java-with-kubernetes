@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: sample-spring-boot-on-kubernetes
+    release: kube-prometheus-stack
+  name: sample-spring-boot-on-kubernetes
+spec:
+  selector:
+    matchLabels:
+      app: sample-spring-boot-on-kubernetes
+  endpoints:
+    - scheme: http
+      port: mgmt
+      path: /actuator/prometheus
+      interval: 10s
+      honorLabels: true
