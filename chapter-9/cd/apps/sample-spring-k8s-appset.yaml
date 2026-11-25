@@ -23,7 +23,7 @@ spec:
       project: default
       source:
         path: chapter-9/cd/chart
-        repoURL: 'https://github.com/piomin/java-with-kubernetes-in-action.git'
+        repoURL: 'https://github.com/piomin/hands-on-java-with-kubernetes.git'
         targetRevision: HEAD
         helm:
           valueFiles:

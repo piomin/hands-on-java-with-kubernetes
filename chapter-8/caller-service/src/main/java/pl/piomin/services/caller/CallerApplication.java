@@ -13,9 +13,8 @@ public class CallerApplication {
 	}
 
 	@Bean
-	RestClient restClient() {
-		return RestClient.builder()
-				.build();
+	RestClient restClient(RestClient.Builder restClientBuilder) {
+		return restClientBuilder.build();
 	}
 	
 }
