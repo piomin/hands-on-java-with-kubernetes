@@ -1,11 +1,11 @@
 package pl.piomin.ch6;
 
-import org.springframework.web.service.annotation.GetExchange;
-import org.springframework.web.service.annotation.HttpExchange;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 
-@HttpExchange
+@FeignClient("sample-quarkus-k8s")
 public interface SampleQuarkusK8sClient {
 
-    @GetExchange("/hello")
-    String hello();
+    @GetMapping("/hello")
+    public String hello();
 }

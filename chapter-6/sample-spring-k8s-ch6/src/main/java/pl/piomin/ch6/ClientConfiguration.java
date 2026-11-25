@@ -17,10 +17,10 @@ public class ClientConfiguration {
     }
 
     @Bean
-    SampleQuarkusK8sClient sampleQuarkusK8sClient(@LoadBalanced RestClient.Builder builder) {
+    SampleQuarkusK8sHttpClient sampleQuarkusK8sHttpClient(@LoadBalanced RestClient.Builder builder) {
         RestClient restClient = builder.baseUrl("http://sample-quarkus-k8s").build();
         return HttpServiceProxyFactory.builderFor(RestClientAdapter.create(restClient))
                 .build()
-                .createClient(SampleQuarkusK8sClient.class);
+                .createClient(SampleQuarkusK8sHttpClient.class);
     }
 }

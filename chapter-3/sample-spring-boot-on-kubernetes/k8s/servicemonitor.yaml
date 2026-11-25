@@ -11,7 +11,7 @@ spec:
       app: sample-spring-boot-on-kubernetes
   endpoints:
     - scheme: http
-      port: mgmt
+      targetPort: 8080
       path: /actuator/prometheus
       interval: 10s
       honorLabels: true
