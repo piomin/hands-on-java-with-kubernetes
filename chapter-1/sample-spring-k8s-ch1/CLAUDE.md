@@ -1,0 +1,59 @@
+# CLAUDE.md: sample-spring-k8s-ch1
+
+## What this app demonstrates
+
+- Spring Boot 4.1.x + Java 25 + Maven, one `GET /hello` endpoint returning `Hello World from Spring Boot!`.
+- Kubernetes manifests generated at build time by Dekorate (`io.dekorate:kubernetes-spring-starter` 5.0.0).
+- Image built and pushed by Jib (`io.dekorate:jib-annotations` 5.0.0 + `jib-maven-plugin`, base image `bellsoft/liberica-openjdk-debian:25`), no Docker daemon needed in Dockerless mode.
+- Alternative image build with Cloud Native Buildpacks (`spring-boot:build-image`).
+
+## Prerequisites
+
+- JDK 25, Maven 3.9+, `kubectl`, `minikube` (docker driver), Docker (needed for Buildpacks and for minikube `docker` driver).
+- Spring Boot CLI (`spring`) only for generating the project from scratch.
+- A Docker Hub account and `docker login` done. Images go to `docker.io/piomin/sample-spring-k8s-ch1`, but for a different user obtain it with the `docker info` command. Then save it in memory as <DOCKER_USERNAME>.
+- Check if `kubectl` is logged into an existing cluster. Otherwise, the target cluster is a local Minikube. Check `kubectl config current-context` before any deploy.
+
+## Step by step
+
+1. Generate the project (skip if the code already exists):
+   `spring init -d=web -g=pl.piomin -a=sample-spring-k8s-ch1 --build maven sample-spring-k8s-ch1`
+2. Add to `pom.xml` the two Dekorate dependencies (`kubernetes-spring-starter`, `jib-annotations`, version 5.0.0), the `jib-maven-plugin` with the Liberica `from` image, and `-proc:full` in `maven-compiler-plugin` compilerArgs (annotation processing is required for Dekorate on Java 25).
+3. In `src/main/resources/application.properties` use `dekorate.kubernetes.*` proprties.
+4. Dekorate detects the `@RestController` and generates the `Service`.
+5. Build, push the image and deploy (Dockerless Jib):
+   ```shell
+   mvn clean package \
+     -Ddekorate.deploy=true \
+     -Ddekorate.jib.group=<DOCKER_USERNAME> \
+     -Ddekorate.jib.docker-build=false
+   ```
+   Without `-Ddekorate.jib.group` the image prefix is the OS account name and the `Deployment` points to an image that does not exist.
+   Generated manifest: `target/classes/META-INF/dekorate/kubernetes.yml`.
+6. Verify:
+   ```shell
+   kubectl get pod
+   kubectl get svc sample-spring-k8s-ch1      # NodePort, 8080:<nodePort>/TCP
+   kubectl port-forward svc/sample-spring-k8s-ch1 8080
+   curl http://localhost:8080/hello           # Hello World from Spring Boot!
+   minikube service list -n default           # sample-spring-k8s-ch1 -> http/8080
+   ```
+   Integration tests (`DemoTestsIT`, run by Failsafe) check the deployed `Deployment` and pod. Dekorate deploys at the very end of the Maven session, so run them in a second command after the deploy build: `mvn verify`.
+7. Buildpacks variant (needs Docker running, pushes `piomin/sample-spring-k8s-ch1:buildpacks` because `<publish>true</publish>`):
+   ```shell
+   mvn clean package spring-boot:build-image
+   kubectl create deployment sample-spring-k8s-ch1-buildpacks --image piomin/sample-spring-k8s-ch1:buildpacks
+   ```
+8. Never clean up after a test without user confirmation or request.
+   ```shell
+   kubectl delete -f target/classes/META-INF/dekorate/kubernetes.yml
+   kubectl delete deployment sample-spring-k8s-ch1-buildpacks
+   ```
+
+## Rules for agents
+
+- Build and test without side effects first: `mvn clean package` (no `-Ddekorate.deploy`) only compiles, runs tests and generates the manifest.
+- Ask the user before anything outward-facing: pushing to Docker Hub (Jib, `publish=true`), deploying to a cluster, deleting or recreating a Minikube profile.
+- Never deploy to a cluster other than the local Minikube unless the user says so.
+- Do not commit `target/`.
+- When a step fails or an output differs from what is described here, fix the code or this file so they agree, and mention it in the report.

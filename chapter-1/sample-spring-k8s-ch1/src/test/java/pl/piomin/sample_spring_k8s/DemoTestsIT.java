@@ -2,7 +2,6 @@ package pl.piomin.sample_spring_k8s;
 
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
-import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientBuilder;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +13,7 @@ public class DemoTestsIT {
 
     KubernetesClient client = new KubernetesClientBuilder().build();
 
-//    @Test
+    @Test
     void shouldBeDeployed() {
         Deployment deployment = client.apps().deployments()
                 .inNamespace("default")
@@ -23,7 +22,7 @@ public class DemoTestsIT {
         Assertions.assertNotNull(deployment);
     }
 
-//    @Test
+    @Test
     void shouldRunning() {
         List<Pod> pods = client.pods()
                 .inNamespace("default")
