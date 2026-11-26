@@ -1,6 +1,5 @@
 package pl.piomin.samples.springboot.kubernetes;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -18,8 +17,11 @@ public class SpringBootOnKubernetesApp implements ApplicationListener<Applicatio
         SpringApplication.run(SpringBootOnKubernetesApp.class, args);
     }
 
-    @Autowired
-    PersonRepository repository;
+    private final PersonRepository repository;
+
+    SpringBootOnKubernetesApp(PersonRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {

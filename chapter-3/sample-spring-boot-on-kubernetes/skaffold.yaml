@@ -16,12 +16,6 @@ manifests:
 deploy:
   kubectl: {}
 profiles:
-  - name: knative
-    manifests:
-      rawYaml:
-        - k8s/knative-service.yaml
-    deploy:
-      kubectl: {}
   - name: buildpacks
     build:
       artifacts:
@@ -29,7 +23,7 @@ profiles:
           buildpacks:
             builder: paketobuildpacks/builder:base
             env:
-              - BP_JVM_VERSION=21
+              - BP_JVM_VERSION=25
             buildpacks:
               - paketo-buildpacks/adoptium
               - paketo-buildpacks/java

@@ -15,9 +15,10 @@ spec:
       labels:
         app: sample-spring-boot-on-kubernetes
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
       - name: sample-spring-boot-on-kubernetes
-        image: piomin/sample-spring-boot-on-kubernetes:1.0.0-SNAPSHOT
+        image: piomin/sample-spring-boot-on-kubernetes:1.0-SNAPSHOT
         ports:
         - containerPort: 8080
           name: http
@@ -54,6 +55,17 @@ spec:
           periodSeconds: 10
           successThreshold: 1
           failureThreshold: 3
+        startupProbe:
+          httpGet:
+            port: 8081
+            path: /actuator/health/liveness
+            scheme: HTTP
+          periodSeconds: 5
+          failureThreshold: 30
+        lifecycle:
+          preStop:
+            sleep:
+              seconds: 5
         livenessProbe:
           httpGet:
             port: 8081
