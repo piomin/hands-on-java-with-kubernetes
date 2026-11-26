@@ -13,6 +13,18 @@ Chapter 3 sample of the book "Java with Kubernetes in Action": a Quarkus + Postg
 - Configuration through `quarkus.kubernetes.*`: labels, annotations, env variables (database user and name as plain values, password from the `my-db-postgresql` `Secret`, key `postgres-password`), resources (requests `64Mi`/`200m`, limits `512Mi`/`1000m`).
 - Manifests are generated into `target/kubernetes/kubernetes.yml` (`Service` on port 80, `Deployment`, `ServiceAccount`, `Role`, `RoleBinding`, a Liquibase init `Job` and a `ServiceMonitor`). The image is built and pushed by Jib.
 
+## Kubernetes objects generated from the extensions
+
+`quarkus-kubernetes` inspects the other extensions in the `pom.xml` and generates the matching objects into `target/kubernetes/kubernetes.yml`. Do not write them by hand, change them with `quarkus.kubernetes.*` properties.
+
+| Extension | Generated objects |
+|-----------|-------------------|
+| `quarkus-liquibase` (with `quarkus.liquibase.migrate-at-start`) | A `Job` named `sample-quarkus-on-kubernetes-liquibase-init` that runs the migration, an init container (`k8s-wait-for`) in the `Deployment` that waits for that `Job`, and the `ServiceAccount`, `Role` (`...-view-jobs`) and `RoleBinding` that let the pod read the `Job` status. |
+| `quarkus-micrometer-registry-prometheus` | A `ServiceMonitor` (path `/q/metrics`, `targetPort: 8080`, selector by `app.kubernetes.io/name` and `app.kubernetes.io/version`) and the `prometheus.io/*` annotations on the `Service` and the `Deployment`. |
+| `quarkus-smallrye-health` | Liveness (`/q/health/live`), readiness (`/q/health/ready`) and startup (`/q/health/started`) probes in the `Deployment`. |
+
+After changing the dependencies or the properties, regenerate and review the manifest with `mvn clean package -DskipTests`.
+
 ## Prerequisites
 
 - JDK 25, Maven 3.9+, Docker (Quarkus Dev Services starts PostgreSQL for the tests), `kubectl`, `minikube` (docker driver), `helm`.
@@ -56,15 +68,23 @@ Chapter 3 sample of the book "Java with Kubernetes in Action": a Quarkus + Postg
    kubectl port-forward svc/kube-prometheus-stack-prometheus 9090 -n monitoring
    ```
    and check Status -> Target health.
-6. Clean up after a test:
+6. Clean up only on explicit user request, or after the user confirms at the end of the run:
    ```shell
    kubectl delete -f target/kubernetes/kubernetes.yml
    ```
 
+## Final report
+
+At the end of a run, always print a short summary for the user with these three parts, then ask whether to clean up:
+
+1. **What was built and deployed:** the image (`<DOCKER_USERNAME>/sample-quarkus-on-kubernetes:1.0`), the `Deployment`, `Service`, liquibase init `Job` and `ServiceMonitor` generated from the extensions, and the PostgreSQL release `my-db` the app depends on.
+2. **Where it is:** cluster context (`minikube`), namespace (`default`), registry (`docker.io/<DOCKER_USERNAME>`), the manifest file `target/kubernetes/kubernetes.yml`, the database service `my-db-postgresql:5432`.
+3. **How to test it:** `kubectl get pod,job,svc`, `kubectl port-forward svc/sample-quarkus-on-kubernetes 8080:80`, `curl http://localhost:8080/persons`, `/q/health/ready`, `/q/metrics`, `/q/swagger-ui`, `mvn verify -Dit.test=PersonTestOnKubernetesIT`, and the Prometheus target if `kube-prometheus-stack` is installed. Say which of these you ran and what they returned.
 ## Rules for agents
 
 - Build and test without side effects first: `mvn clean package -DskipTests` and `mvn verify -Dit.test=PersonResourceIT` change nothing on the cluster. Do not set `quarkus.kubernetes.deploy` unless the deploy is intended.
 - Ask the user before anything outward-facing: pushing to Docker Hub, deploying to a cluster, installing Helm charts, deleting or recreating a Minikube profile.
+- Do not clean up (`kubectl delete`, `skaffold delete`, `helm uninstall`) unless the user explicitly asks for it. At the end of a run, ask the user whether to clean up and wait for the answer.
 - Never deploy to a cluster other than the local Minikube unless the user says so.
 - Do not commit `target/`.
 - When a step fails or an output differs from what is described here, fix the code or this file so they agree, and mention it in the report.

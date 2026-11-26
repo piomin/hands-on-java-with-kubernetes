@@ -13,6 +13,7 @@ manifests:
   rawYaml:
     - k8s/mongodb-deployment.yaml
     - k8s/deployment.yaml
+    - k8s/servicemonitor.yaml
 deploy:
   kubectl: {}
 profiles:
