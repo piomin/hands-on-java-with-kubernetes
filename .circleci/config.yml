@@ -69,6 +69,7 @@ jobs:
           name: Deploy and Test
           command: |
             mvn clean package -Pkubernetes -DskipTests
+            (cd chapter-1/sample-spring-k8s-ch1 && mvn clean package -DskipTests -Ddekorate.deploy=true -Ddekorate.jib.group=piomin -Ddekorate.jib.docker-build=false)
             mvn verify
       - run:
           name: Delete Kind Cluster
