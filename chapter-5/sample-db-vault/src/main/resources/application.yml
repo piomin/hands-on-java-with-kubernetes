@@ -24,6 +24,6 @@ spring:
         username-property: spring.datasource.username
         password-property: spring.datasource.password
       kubernetes:
-        role: internal-app
+        role: spring-app
   liquibase:
     change-log: classpath:changelog/changeLog.sql
