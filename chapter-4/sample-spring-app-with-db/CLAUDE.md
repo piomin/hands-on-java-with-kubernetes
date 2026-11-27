@@ -1,6 +1,6 @@
 # CLAUDE.md: sample-spring-app-with-db
 
-Walkthrough of the Spring Boot exercises from chapter 4 of the book "Java with Kubernetes in Action" (`../../../java-with-kuberneters-in-action-book/chapter-04`): "Integrate Eclipse JKube with Spring Boot" (`k8s:debug`, `k8s:watch`) and "Understanding Skaffold" (`skaffold run`, `skaffold dev`, `skaffold debug`, Helm charts for the database and for the app). Follow the book; the code and the configuration in this directory (`pom.xml`, `src/main/jkube/deployment.yml`, `skaffold.yaml`) are the finished result.
+Walkthrough of the Spring Boot exercises from chapter 4 of the book "Hands-on Java with Kubernetes": "Integrate Eclipse JKube with Spring Boot" (`k8s:debug`, `k8s:watch`) and "Understanding Skaffold" (`skaffold run`, `skaffold dev`, `skaffold debug`, Helm charts for the database and for the app). Follow the book; the code and the configuration in this directory (`pom.xml`, `src/main/jkube/deployment.yml`, `skaffold.yaml`) are the finished result.
 
 ## Prerequisites
 

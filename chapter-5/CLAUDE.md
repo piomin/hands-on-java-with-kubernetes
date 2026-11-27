@@ -1,6 +1,6 @@
 # CLAUDE.md: chapter 5 (Security)
 
-Walkthrough of the exercises from chapter 5 of the book "Java with Kubernetes in Action" (`../java-with-kuberneters-in-action-book/chapter-05`). The book is the source of truth for the steps; the code is in three modules of this directory: `sample-spring-k8s-ch5` (Spring Boot, `sample-spring-k8s`), `sample-quarkus-k8s-ch5` (Quarkus, `sample-quarkus-k8s`) and `sample-db-vault` (Spring Boot with Vault dynamic database credentials). The exercises build on each other, so go through them in the order below.
+Walkthrough of the exercises from chapter 5 of the book "Hands-on Java with Kubernetes". The book is the source of truth for the steps; the code is in three modules of this directory: `sample-spring-k8s-ch5` (Spring Boot, `sample-spring-k8s`), `sample-quarkus-k8s-ch5` (Quarkus, `sample-quarkus-k8s`) and `sample-db-vault` (Spring Boot with Vault dynamic database credentials). The exercises build on each other, so go through them in the order below.
 
 ## Prerequisites
 

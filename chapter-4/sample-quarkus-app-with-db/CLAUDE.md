@@ -1,6 +1,6 @@
 # CLAUDE.md: sample-quarkus-app-with-db
 
-Walkthrough of the Quarkus exercises from chapter 4 of the book "Java with Kubernetes in Action" (`../../../java-with-kuberneters-in-action-book/chapter-04`): "Quarkus in Development Mode with Kubernetes" (Dev Services, `quarkus:remote-dev`) and "Local Development with Mirrord". Follow the book; the code in this directory is the finished result.
+Walkthrough of the Quarkus exercises from chapter 4 of the book "Hands-on Java with Kubernetes": "Quarkus in Development Mode with Kubernetes" (Dev Services, `quarkus:remote-dev`) and "Local Development with Mirrord". Follow the book; the code in this directory is the finished result.
 
 ## Prerequisites
 

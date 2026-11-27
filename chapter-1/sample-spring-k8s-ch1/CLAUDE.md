@@ -1,6 +1,6 @@
 # CLAUDE.md: sample-spring-k8s-ch1
 
-Walkthrough of the Spring Boot exercise from chapter 1 of the book "Java with Kubernetes in Action" (`../../../java-with-kuberneters-in-action-book/chapter-01`, sections "Generate an App using Spring Boot CLI", "Generate Kubernetes Manifests with the Dekorate Library", "Spring Boot App Image with Cloud Native Buildpacks"). Follow the book; the code in this directory is the finished result.
+Walkthrough of the Spring Boot exercise from chapter 1 of the book "Hands-on Java with Kubernetes" (sections "Generate an App using Spring Boot CLI", "Generate Kubernetes Manifests with the Dekorate Library", "Spring Boot App Image with Cloud Native Buildpacks"). Follow the book; the code in this directory is the finished result.
 
 ## Prerequisites
 

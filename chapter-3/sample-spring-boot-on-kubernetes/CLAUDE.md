@@ -1,6 +1,6 @@
 # CLAUDE.md: sample-spring-boot-on-kubernetes
 
-Walkthrough of the Spring Boot exercises from chapter 3 of the book "Java with Kubernetes in Action" (`../../../java-with-kuberneters-in-action-book/chapter-03`): health probes on a separate management port, startup probe, graceful shutdown, resource requests and limits, and Prometheus metrics with a `ServiceMonitor`. Follow the book; the code and the manifests in `k8s/` in this directory are the finished result (they also deploy MongoDB, which the app uses).
+Walkthrough of the Spring Boot exercises from chapter 3 of the book "Hands-on Java with Kubernetes": health probes on a separate management port, startup probe, graceful shutdown, resource requests and limits, and Prometheus metrics with a `ServiceMonitor`. Follow the book; the code and the manifests in `k8s/` in this directory are the finished result (they also deploy MongoDB, which the app uses).
 
 ## Prerequisites
 

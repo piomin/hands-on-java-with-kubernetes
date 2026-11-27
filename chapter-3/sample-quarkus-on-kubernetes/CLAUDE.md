@@ -1,6 +1,6 @@
 # CLAUDE.md: sample-quarkus-on-kubernetes
 
-Walkthrough of the Quarkus exercises from chapter 3 of the book "Java with Kubernetes in Action" (`../../../java-with-kuberneters-in-action-book/chapter-03`): JSON logs, health probes, graceful shutdown, resource requests and limits, and Prometheus metrics with a generated `ServiceMonitor`. Follow the book; the code in this directory is the finished result. The Quarkus Kubernetes extension generates all manifests into `target/kubernetes/kubernetes.yml`, do not write them by hand, change them with `quarkus.kubernetes.*` properties and regenerate with `mvn clean package -DskipTests`.
+Walkthrough of the Quarkus exercises from chapter 3 of the book "Hands-on Java with Kubernetes": JSON logs, health probes, graceful shutdown, resource requests and limits, and Prometheus metrics with a generated `ServiceMonitor`. Follow the book; the code in this directory is the finished result. The Quarkus Kubernetes extension generates all manifests into `target/kubernetes/kubernetes.yml`, do not write them by hand, change them with `quarkus.kubernetes.*` properties and regenerate with `mvn clean package -DskipTests`.
 
 ## Prerequisites
 
