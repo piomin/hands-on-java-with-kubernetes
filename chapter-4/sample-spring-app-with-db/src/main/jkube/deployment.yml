@@ -1,6 +1,7 @@
 spec:
   template:
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - env:
           - name: DATABASE_PASS
@@ -8,3 +9,21 @@ spec:
               secretKeyRef:
                 key: password
                 name: person-db-postgresql
+          resources:
+            requests:
+              memory: 384Mi
+              cpu: 200m
+            limits:
+              memory: 740Mi
+              cpu: "2"
+          startupProbe:
+            httpGet:
+              port: 8080
+              path: /actuator/health/liveness
+              scheme: HTTP
+            periodSeconds: 5
+            failureThreshold: 30
+          lifecycle:
+            preStop:
+              sleep:
+                seconds: 5

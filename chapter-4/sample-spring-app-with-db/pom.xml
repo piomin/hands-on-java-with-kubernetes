@@ -112,13 +112,6 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>kubernetes</id>
-            <properties>
-                <dekorate.build>true</dekorate.build>
-                <skipTests>true</skipTests>
-            </properties>
-        </profile>
     </profiles>
 
     <build>
@@ -151,12 +144,6 @@
                                 <DATABASE_USER>spring</DATABASE_USER>
                                 <DATABASE_NAME>spring</DATABASE_NAME>
                             </env>
-                            <containerResources>
-                                <requests>
-                                    <memory>256Mi</memory>
-                                    <cpu>200m</cpu>
-                                </requests>
-                            </containerResources>
                         </controller>
                     </resources>
                 </configuration>

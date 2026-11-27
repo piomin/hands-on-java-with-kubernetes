@@ -31,7 +31,7 @@ public class PersonController {
         return repository.findById(id).orElse(null);
     }
 
-    @GetMapping("/name/{name}")
+    @GetMapping("/last-name/{lastName}")
     public List<Person> getByLastName(@PathVariable("lastName") String lastName) {
         LOG.info("Get person by lastName={}", lastName);
         return repository.findByLastName(lastName);

@@ -1,6 +1,8 @@
 spring:
   application:
     name: sample-spring-app-with-db
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
   datasource:
     url: jdbc:postgresql://person-db-postgresql:5432/${DATABASE_NAME}
     username: ${DATABASE_USER}
@@ -18,7 +20,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health,prometheus
   endpoint.health:
     show-details: always
     group:
