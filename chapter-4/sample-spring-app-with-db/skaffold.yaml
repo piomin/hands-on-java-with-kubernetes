@@ -26,6 +26,10 @@ manifests:
           extraEnvVarsSecret[0].name: person-db-postgresql
           image.repository: piomin/sample-spring-app-with-db
           image.tag: latest
+          resources.requests.memory: 384Mi
+          resources.requests.cpu: 200m
+          resources.limits.memory: 740Mi
+          resources.limits.cpu: "2"
         repo: https://piomin.github.io/helm-charts
 profiles:
   - name: postgres

@@ -1,6 +1,8 @@
 spring:
   application:
     name: sample-spring-boot-on-kubernetes
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
   mongodb:
     host: ${MONGO_URL}
     port: 27017
@@ -13,7 +15,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health,prometheus
   endpoint.health:
       show-details: always
       group:

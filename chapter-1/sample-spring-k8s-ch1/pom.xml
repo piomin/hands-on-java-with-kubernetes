@@ -27,12 +27,12 @@
 		<dependency>
 			<groupId>io.dekorate</groupId>
 			<artifactId>kubernetes-spring-starter</artifactId>
-			<version>4.1.11</version>
+			<version>5.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>io.dekorate</groupId>
 			<artifactId>jib-annotations</artifactId>
-			<version>4.1.11</version>
+			<version>5.0.0</version>
 		</dependency>
 
 		<dependency>
@@ -46,6 +46,18 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<compilerArgs>
@@ -56,6 +68,7 @@
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.5.2</version>
 				<configuration>
 					<from>
 						<image>bellsoft/liberica-openjdk-debian:25</image>
