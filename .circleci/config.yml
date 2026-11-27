@@ -79,6 +79,7 @@ jobs:
           name: Create Kind Cluster
           command: |
             kind create cluster --name c2
+            helm install prometheus-operator-crds prometheus-community/prometheus-operator-crds
       - run:
           name: Deploy and Test
           command: |
